@@ -1,0 +1,29 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "RDiVehicle",
+	"Description": "Vehicle Support Library",
+	"Category": "Physics",
+	"CreatedBy": "SeriouSerg",
+	"CreatedByURL": "http://real-dynamics.ru",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": true,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "RDiVehicle",
+			"Type": "Runtime",
+			"LoadingPhase": "PreLoadingScreen"
+		}
+	],
+	 "Plugins": [
+		{
+			"Name": "PhysXVehicles",
+			"Enabled": true
+		}
+   	]   
+}
