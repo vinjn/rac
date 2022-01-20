@@ -15,7 +15,7 @@
 	],
 	"Plugins": [
 		{
-			"Name": "PhysXVehicles",
+			"Name": "MyPhysXVehicles",
 			"Enabled": true
 		},
 		{
