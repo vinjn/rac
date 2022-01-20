@@ -25,7 +25,7 @@ struct FMyWheelAnimData
  /** Proxy override for this UAnimInstance-derived class */
 struct UE_DEPRECATED(4.26, "PhysX is deprecated. Use the FVehicleAnimationInstanceProxy from the ChaosVehiclePhysics Plugin.") FMyVehicleAnimInstanceProxy;
 USTRUCT()
-struct  FMyVehicleAnimInstanceProxy : public FAnimInstanceProxy
+struct MYPHYSXVEHICLES_API FMyVehicleAnimInstanceProxy : public FAnimInstanceProxy
 {
 	GENERATED_BODY()
 
@@ -58,7 +58,7 @@ private:
 
 class UE_DEPRECATED(4.26, "PhysX is deprecated. Use the UVehicleAnimationInstance from the ChaosVehiclePhysics Plugin.") UMyVehicleAnimInstance;
 UCLASS(transient)
-class  UMyVehicleAnimInstance : public UAnimInstance
+class MYPHYSXVEHICLES_API UMyVehicleAnimInstance : public UAnimInstance
 {
 	GENERATED_UCLASS_BODY()
 

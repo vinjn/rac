@@ -1,12 +1,12 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+#include "MyPhysXVehiclesEditorPlugin.h"
 #include "CoreMinimal.h"
 #include "UObject/Class.h"
 #include "MyWheeledVehicleMovementComponent4WDetails.h"
 #include "PropertyEditorModule.h"
 #include "MyVehicleTransmissionDataCustomization.h"
 #include "Modules/ModuleManager.h"
-#include "MyPhysXVehiclesEditorPlugin.h"
 #include "AssetData.h"
 #include "AssetRegistryModule.h"
 #include "Vehicles/TireType.h"

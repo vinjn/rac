@@ -161,7 +161,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 class UE_DEPRECATED(4.26, "PhysX is deprecated. Use the UChaosWheeledVehicleMovementComponent from the ChaosVehiclePhysics Plugin.") UMyWheeledVehicleMovementComponent4W;
 UCLASS(ClassGroup = (Physics), meta = (BlueprintSpawnableComponent), hidecategories = (PlanarMovement, "Components|Movement|Planar", Activation, "Components|Activation"))
-class  UMyWheeledVehicleMovementComponent4W : public UMyWheeledVehicleMovementComponent
+class MYPHYSXVEHICLES_API UMyWheeledVehicleMovementComponent4W : public UMyWheeledVehicleMovementComponent
 {
 	GENERATED_UCLASS_BODY()
 

@@ -50,6 +50,6 @@ class URDiVehicleBPLibrary : public UBlueprintFunctionLibrary
 
 	// Get wheel slip from PhysX
 	UFUNCTION(BlueprintPure, meta = (DisplayName = "GetWheelSlip", Keywords = "RDiVehicle wheel"), Category="RDiVehicle")
-	static bool GetWheelSlip(UWheeledVehicleMovementComponent* pVehicle, int whNum, float Threshold, float &value);
+	static bool GetWheelSlip(UMyWheeledVehicleMovementComponent* pVehicle, int whNum, float Threshold, float &value);
 	
 };

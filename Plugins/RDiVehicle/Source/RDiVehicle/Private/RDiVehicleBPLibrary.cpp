@@ -2,8 +2,8 @@
 
 #include "RDiVehicleBPLibrary.h"
 #include "RDiVehicle.h"
-#include "WheeledVehicleMovementComponent.h"
-#include "VehicleWheel.h"
+#include "MyWheeledVehicleMovementComponent.h"
+#include "MyVehicleWheel.h"
 #include "PhysXPublic.h"
 #include "Physics/PhysicsFiltering.h"
 #include "Math/UnrealMathUtility.h"
@@ -163,7 +163,7 @@ FString URDiVehicleBPLibrary::getGearString( int gearIn )
     else return FString::FromInt(gearIn);
 }
 
-bool URDiVehicleBPLibrary::GetWheelSlip(UWheeledVehicleMovementComponent* pVehicle, int whNum, float Threshold, float &value)
+bool URDiVehicleBPLibrary::GetWheelSlip(UMyWheeledVehicleMovementComponent* pVehicle, int whNum, float Threshold, float &value)
 {
 	//bool SlipThresholdExceeded = pVehicle->CheckSlipThreshold(longitudal, lateral);
 	// если колесо в воздухе то сразу нет

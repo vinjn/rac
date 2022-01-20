@@ -1,10 +1,10 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+#include "MyPhysXVehiclesPlugin.h"
 #include "CoreMinimal.h"
 #include "PhysicsPublic.h"
 #include "PhysXPublic.h"
 #include "Modules/ModuleManager.h"
-#include "MyPhysXVehiclesPlugin.h"
 #include "MyWheeledVehicleMovementComponent.h"
 #include "MyPhysXVehicleManager.h"
 #include "UObject/UObjectIterator.h"

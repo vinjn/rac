@@ -36,7 +36,7 @@ enum EMyWheelSweepType
 
 class UE_DEPRECATED(4.26, "PhysX is deprecated. Use the UChaosVehicleWheel from the ChaosVehiclePhysics Plugin.") UMyVehicleWheel;
 UCLASS(BlueprintType, Blueprintable)
-class  UMyVehicleWheel : public UObject
+class MYPHYSXVEHICLES_API UMyVehicleWheel : public UObject
 {
 	GENERATED_UCLASS_BODY()
 

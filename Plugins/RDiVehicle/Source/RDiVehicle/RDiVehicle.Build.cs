@@ -30,7 +30,7 @@ public class RDiVehicle : ModuleRules
 			new string[]
 			{
 				"Core",
-				"PhysXVehicles"
+				"MyPhysXVehicles"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -44,7 +44,7 @@ public class RDiVehicle : ModuleRules
 				"Slate",
 				"SlateCore",
 				"InputCore", 
-				"PhysXVehicles", 
+				"MyPhysXVehicles", 
 				"PhysX", 
 				"APEX"
 

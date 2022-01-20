@@ -15,7 +15,7 @@
  */
 struct UE_DEPRECATED(4.26, "PhysX is deprecated. Use the FAnimNode_WheelController from the ChaosVehiclePhysics Plugin.") FMyAnimNode_WheelHandler;
 USTRUCT()
-struct  FMyAnimNode_WheelHandler : public FAnimNode_SkeletalControlBase
+struct MYPHYSXVEHICLES_API FMyAnimNode_WheelHandler : public FAnimNode_SkeletalControlBase
 {
 	GENERATED_USTRUCT_BODY()
 
