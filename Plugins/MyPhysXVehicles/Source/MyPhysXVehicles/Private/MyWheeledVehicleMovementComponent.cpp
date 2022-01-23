@@ -1518,7 +1518,7 @@ void DrawTelemetryGraph( uint32 Channel, const PxVehicleGraph& PGraph, UCanvas* 
 
 	PGraph.computeGraphChannel( Channel, PGraphXY, PGraphColor, PGraphTitle );
 
-	FString Label = ANSI_TO_TCHAR(PGraphTitle) + FString::Printf(TEXT("[%.2f,%.2f]"), MinY, MaxY);
+	FString Label = ANSI_TO_TCHAR(PGraphTitle) + FString::Printf(TEXT("[%.1f,%.1f]"), MinY, MaxY);
 	Canvas->SetDrawColor( FColor( 255, 255, 0 ) );
 	UFont* Font = GEngine->GetSmallFont();
 	Canvas->DrawText( Font, Label, GraphX, GraphY );
@@ -1697,7 +1697,7 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 		Canvas->DrawText(RenderFont, FString::Printf(TEXT("[%d]"), w), GetXPos(20.f), YPos);
 		Canvas->DrawText(RenderFont, FString::Printf(TEXT("RPM: %.1f"), WheelRPM), GetXPos(80.f), YPos);
 		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Slip Ratio: %.2f"), LongSlip), GetXPos(100.f), YPos);
-		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Slip Angle (degrees): %.1f"), FMath::RadiansToDegrees(LatSlip)), GetXPos(180.f), YPos);
+		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Slip Angle: %.1f"), FMath::RadiansToDegrees(LatSlip)), GetXPos(180.f), YPos);
 		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Contact Surface: %s"), *ContactSurfaceString), GetXPos(200.f), YPos);
 
 		YPos += YL;

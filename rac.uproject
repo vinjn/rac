@@ -240,6 +240,10 @@
 		{
 			"Name": "MDL",
 			"Enabled": false
+		},
+		{
+			"Name": "DatasmithGLTFImporter",
+			"Enabled": true
 		}
 	]
 }
