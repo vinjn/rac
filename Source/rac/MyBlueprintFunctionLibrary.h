@@ -18,15 +18,15 @@ class RAC_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 	static void RecreateComponentPhysicsState(class UActorComponent* pActorComponent);
 
 	UFUNCTION(BlueprintCallable, Category = "Physics")
-	static float GetVehicleWheelShapeRadius(class UVehicleWheel* wheel);
+	static float GetVehicleWheelShapeRadius(class UMyVehicleWheel* wheel);
 
 	UFUNCTION(BlueprintCallable, Category = "Physics")
-	static void SetVehicleWheelShapeRadius(class UVehicleWheel* wheel, float radius);
+	static void SetVehicleWheelShapeRadius(class UMyVehicleWheel* wheel, float radius);
 
 	UFUNCTION(BlueprintCallable, Category = "Physics")
-	static float GetVehicleWheelShapeWidth(class UVehicleWheel* wheel);
+	static float GetVehicleWheelShapeWidth(class UMyVehicleWheel* wheel);
 
 	UFUNCTION(BlueprintCallable, Category = "Physics")
-	static void SetVehicleWheelShapeWidth(class UVehicleWheel* wheel, float width);
+	static void SetVehicleWheelShapeWidth(class UMyVehicleWheel* wheel, float width);
 
 };

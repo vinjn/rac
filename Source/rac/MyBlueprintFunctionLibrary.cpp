@@ -2,7 +2,7 @@
 
 
 #include "MyBlueprintFunctionLibrary.h"
-#include "VehicleWheel.h"
+#include "MyVehicleWheel.h"
 
  void UMyBlueprintFunctionLibrary::RecreateComponentPhysicsState(UActorComponent* pActorComponent)
  {
@@ -12,22 +12,22 @@
      }
  }
 
-float UMyBlueprintFunctionLibrary::GetVehicleWheelShapeRadius(UVehicleWheel* wheel)
+float UMyBlueprintFunctionLibrary::GetVehicleWheelShapeRadius(UMyVehicleWheel* wheel)
 {
     return wheel->ShapeRadius;
 }
 
-void UMyBlueprintFunctionLibrary::SetVehicleWheelShapeRadius(UVehicleWheel* wheel, float radius)
+void UMyBlueprintFunctionLibrary::SetVehicleWheelShapeRadius(UMyVehicleWheel* wheel, float radius)
 {
     wheel->ShapeRadius = radius;
 }
 
-float UMyBlueprintFunctionLibrary::GetVehicleWheelShapeWidth(UVehicleWheel* wheel)
+float UMyBlueprintFunctionLibrary::GetVehicleWheelShapeWidth(UMyVehicleWheel* wheel)
 {
     return wheel->ShapeWidth;
 }
 
-void UMyBlueprintFunctionLibrary::SetVehicleWheelShapeWidth(UVehicleWheel* wheel, float width)
+void UMyBlueprintFunctionLibrary::SetVehicleWheelShapeWidth(UMyVehicleWheel* wheel, float width)
 {
     wheel->ShapeWidth = width;
 }

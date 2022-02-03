@@ -13,7 +13,7 @@ public class rac : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"InputCore",
-			"PhysXVehicles"
+			"MyPhysXVehicles"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
