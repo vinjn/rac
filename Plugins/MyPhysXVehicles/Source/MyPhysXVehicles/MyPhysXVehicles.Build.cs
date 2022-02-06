@@ -9,7 +9,8 @@ namespace UnrealBuildTool.Rules
 	{
         public MyPhysXVehicles(ReadOnlyTargetRules Target) : base(Target)
 		{
-			PublicDependencyModuleNames.AddRange(
+            PublicDefinitions.Add("VINJN_UPDATE = 1");
+            PublicDependencyModuleNames.AddRange(
 				new string[]
 				{
 					"Core",

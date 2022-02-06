@@ -23,7 +23,6 @@ struct FMyWheelAnimData
 };
 
  /** Proxy override for this UAnimInstance-derived class */
-struct UE_DEPRECATED(4.26, "PhysX is deprecated. Use the FVehicleAnimationInstanceProxy from the ChaosVehiclePhysics Plugin.") FMyVehicleAnimInstanceProxy;
 USTRUCT()
 struct MYPHYSXVEHICLES_API FMyVehicleAnimInstanceProxy : public FAnimInstanceProxy
 {

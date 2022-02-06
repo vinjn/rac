@@ -179,7 +179,6 @@ struct  FMyVehicleInputRate
 /**
  * Component to handle the vehicle simulation for an actor.
  */
-class UE_DEPRECATED(4.26, "PhysX is deprecated. Use the UChaosWheeledVehicleMovementComponent fron the ChaosVehiclePhysics Plugin.") UMyWheeledVehicleMovementComponent;
 UCLASS(Abstract, hidecategories=(PlanarMovement, "Components|Movement|Planar", Activation, "Components|Activation"))
 class  UMyWheeledVehicleMovementComponent : public UPawnMovementComponent, public IRVOAvoidanceInterface
 {

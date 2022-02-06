@@ -19,7 +19,6 @@ class FDebugDisplayInfo;
  * @see UMyWheeledVehicleMovementComponent4W
  */
 
-class UE_DEPRECATED(4.26, "PhysX is deprecated. Use the AMyWheeledVehiclePawn from the ChaosVehiclePhysics Plugin.") AMyWheeledVehicle;
 UCLASS(abstract, config=Game, BlueprintType)
 class  AMyWheeledVehicle : public APawn
 {

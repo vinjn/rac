@@ -1697,11 +1697,14 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 		Canvas->DrawText(RenderFont, FString::Printf(TEXT("[%d]"), w), GetXPos(20.f), YPos);
 		Canvas->DrawText(RenderFont, FString::Printf(TEXT("RPM: %.1f"), WheelRPM), GetXPos(80.f), YPos);
 		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Slip Ratio: %.2f"), LongSlip), GetXPos(100.f), YPos);
-		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Slip Angle: %.1f"), FMath::RadiansToDegrees(LatSlip)), GetXPos(180.f), YPos);
-		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Contact Surface: %s"), *ContactSurfaceString), GetXPos(200.f), YPos);
+		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Slip Angle: %.1f"), FMath::RadiansToDegrees(LatSlip)), GetXPos(100.f), YPos);
+		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Surface: %s"), *ContactSurfaceString), GetXPos(220.f), YPos);
 
+#ifdef VINJN_UPDATE
+#else
 		YPos += YL;
 		XPos = 24.f;
+#endif
 		if ((int32)w < Wheels.Num())
 		{
 			UMyVehicleWheel* Wheel = Wheels[w];
