@@ -1,0 +1,1 @@
+adb shell rm /sdcard/UE4Game/concept/UE4CommandLine.txt
