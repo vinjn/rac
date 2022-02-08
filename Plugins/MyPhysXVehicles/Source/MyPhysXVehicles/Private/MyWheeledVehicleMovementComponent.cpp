@@ -1658,13 +1658,12 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 		Canvas->SetDrawColor(FColor::White);
 		float forwardSpeedKmH = CmSToKmH(GetForwardSpeed());
 		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("Speed (km/h): %d"), (int32)forwardSpeedKmH), 4, YPos);
+		Canvas->DrawText(RenderFont, FString::Printf(TEXT("RPM: %.1f"), GetEngineRotationSpeed()), 4, YPos);
+		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("Gear: %d"), GetCurrentGear()), 150, YPos);
 		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("Steering: %.1f"), SteeringInput), 4, YPos);
-		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("Throttle: %.1f"), ThrottleInput), 4, YPos);
-		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("Brake: %.1f"), BrakeInput), 4, YPos);
-		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("RPM: %.1f"), GetEngineRotationSpeed()), 4, YPos);
-		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("Gear: %d"), GetCurrentGear()), 4, YPos);
+		Canvas->DrawText(RenderFont, FString::Printf(TEXT("Throttle: %.1f"), ThrottleInput), 4, YPos);
+		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("Brake: %.1f"), BrakeInput), 150, YPos);
 		YPos += Canvas->DrawText(RenderFont, FString::Printf(TEXT("Drag: %.1f"), DebugDragMagnitude), 4, YPos);
-
 	}
 
 	SCOPED_SCENE_READ_LOCK(MyVehicleManager->GetScene());
@@ -1746,7 +1745,7 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 			{
 				float OutX = GraphWidth;
 				DrawTelemetryGraph(GraphChannels[i], TelemetryData->getWheelGraph(w), Canvas, CurX, YPos, GraphWidth, GraphHeight, OutX);
-				CurX += OutX + 10.f;
+				CurX += OutX + 17.f;
 			}
 
 			YPos += GraphHeight + 10.f;
