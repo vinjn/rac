@@ -248,6 +248,10 @@
 		{
 			"Name": "ImGui",
 			"Enabled": false
+		},
+		{
+			"Name": "PhysXVehicles",
+			"Enabled": false
 		}
 	]
 }
