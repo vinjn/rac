@@ -1,1 +1,0 @@
--tracehost=127.0.0.1 -trace=gpu,cpu,frame -statnamedevents

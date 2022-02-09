@@ -54,7 +54,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
  * tireLatForceMag - the magnitude of the lateral tire force to be applied to the vehicle's rigid body.
  * tireAlignMoment - the aligning moment of the tire that is to be applied to the vehicle's rigid body (not currently used). 
  */
-void PTireShader(const void* shaderData, const PxF32 tireFriction,
+static void PTireShader(const void* shaderData, const PxF32 tireFriction,
 	const PxF32 longSlip, const PxF32 latSlip,
 	const PxF32 camber, const PxF32 wheelOmega, const PxF32 wheelRadius, const PxF32 recipWheelRadius,
 	const PxF32 restTireLoad, const PxF32 normalisedTireLoad, const PxF32 tireLoad,
@@ -603,7 +603,7 @@ PX_FORCE_INLINE PxF32 smoothingFunction2(const PxF32 K)
 	return (K - K*K + ONE_THIRD*K*K*K - ONE_TWENTYSEVENTH*K*K*K*K);
 }
 
-void PxVehicleComputeTireForceDefault
+static void PxVehicleComputeTireForceDefault
 (const void* tireShaderData, 
  const PxF32 tireFriction,
  const PxF32 longSlip, const PxF32 latSlip, const PxF32 camber,
@@ -763,7 +763,7 @@ USkinnedMeshComponent* UMyWheeledVehicleMovementComponent::GetMesh()
 	return Cast<USkinnedMeshComponent>(UpdatedComponent);
 }
 
-void LogVehicleSettings( PxVehicleWheels* Vehicle )
+static void LogVehicleSettings( PxVehicleWheels* Vehicle )
 {
 	const float VehicleMass = Vehicle->getRigidDynamicActor()->getMass();
 	const FVector VehicleMOI = P2UVector( Vehicle->getRigidDynamicActor()->getMassSpaceInertiaTensor() );
@@ -1485,7 +1485,7 @@ void UMyWheeledVehicleMovementComponent::Serialize(FArchive& Ar)
 
 
 #if WITH_PHYSX_VEHICLES
-void DrawTelemetryGraph( uint32 Channel, const PxVehicleGraph& PGraph, UCanvas* Canvas, float GraphX, float GraphY, float GraphWidth, float GraphHeight, float& OutX )
+static void DrawTelemetryGraph( uint32 Channel, const PxVehicleGraph& PGraph, UCanvas* Canvas, float GraphX, float GraphY, float GraphWidth, float GraphHeight, float& OutX )
 {
 
 	//This is very hacky and we should really access this data from physx instead of copying their default values

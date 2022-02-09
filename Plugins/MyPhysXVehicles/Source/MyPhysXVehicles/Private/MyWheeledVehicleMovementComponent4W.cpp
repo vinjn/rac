@@ -395,7 +395,7 @@ void UMyWheeledVehicleMovementComponent4W::UpdateTransmissionSetup(const FMyVehi
 #endif // WITH_PHYSX
 }
 
-void BackwardsConvertCm2ToM2(float& val, float defaultValue)
+static void BackwardsConvertCm2ToM2(float& val, float defaultValue)
 {
 	if (val != defaultValue)
 	{

@@ -5,24 +5,24 @@ using System.IO;
 
 namespace UnrealBuildTool.Rules
 {
-	public class MyPhysXVehicles : ModuleRules
-	{
+    public class MyPhysXVehicles : ModuleRules
+    {
         public MyPhysXVehicles(ReadOnlyTargetRules Target) : base(Target)
-		{
+        {
             PublicDefinitions.Add("VINJN_UPDATE = 1");
             PublicDependencyModuleNames.AddRange(
-				new string[]
-				{
-					"Core",
-					"CoreUObject",
+                new string[]
+                {
+                    "Core",
+                    "CoreUObject",
                     "Engine",
                     "EngineSettings",
                     "RenderCore",
                     "AnimGraphRuntime",
                     "RHI",
                     "PhysX"
-				}
-				);
+                }
+            );
 
             SetupModulePhysicsSupport(Target);
 
@@ -60,10 +60,6 @@ namespace UnrealBuildTool.Rules
             {
                 PublicAdditionalLibraries.Add(Path.Combine(LibDir, String.Format("libPhysX3Vehicle{0}.a", LibrarySuffix)));
             }
-
-            // PublicAdditionalLibraries.Add("C:/UE_4.27/Engine/Source/ThirdParty/PhysX3/Lib/Win64/VS2015/PhysX3Vehicle_x64.lib");
-            // PublicAdditionalLibraries.Add("d:/UE_4.27/Engine/Source/ThirdParty/PhysX3/Lib/Win64/VS2015/PhysX3Vehicle_x64.lib");
-            // PublicAdditionalLibraries.Add("d:/Epic Games/UE_4.27/Engine/Source/ThirdParty/PhysX3/Lib/Win64/VS2015/PhysX3Vehicle_x64.lib");
         }
     }
 }

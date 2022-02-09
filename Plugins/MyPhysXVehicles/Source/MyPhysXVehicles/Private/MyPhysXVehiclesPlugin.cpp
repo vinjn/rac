@@ -117,6 +117,6 @@ public:
 #endif // ALLOW_CONSOLE
 };
 
-IMPLEMENT_MODULE(FPhysXVehiclesPlugin, PhysXVehicles )
+IMPLEMENT_MODULE(FPhysXVehiclesPlugin, MyPhysXVehicles )
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
