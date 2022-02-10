@@ -38,6 +38,7 @@ namespace UnrealBuildTool.Rules
                     Path.Combine(PhysXIncludeDir, "vehicle"),
                     Path.Combine(PhysXIncludeDir, "cloth"),
                     Path.Combine(PhysXSharedDir, "src/pvd/include"),
+                    Path.Combine(PhysXSharedDir, "src/foundation/include"),
                     Path.Combine(PhysXSrcDir, "PhysXExtensions/src/serialization/Xml"),
                     Path.Combine(PhysXSrcDir, "Common/src"),
                     Path.Combine(PhysXSrcDir, "PhysXMetaData/core/include"),

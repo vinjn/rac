@@ -99,7 +99,10 @@ PxVehicleGraph::PxVehicleGraph()
 		memset(mChannelSamples[i], 0, sizeof(PxReal)*eMAX_NB_SAMPLES);
 	}
 	mNbChannels = 0;
+
+#if !VINJN_UPDATE
 	PX_COMPILE_TIME_ASSERT(size_t(PxVehicleGraph::eMAX_NB_CHANNELS) >= size_t(PxVehicleDriveGraphChannel::eMAX_NB_DRIVE_CHANNELS) && size_t(PxVehicleGraph::eMAX_NB_CHANNELS) >= size_t(PxVehicleWheelGraphChannel::eMAX_NB_WHEEL_CHANNELS));
+#endif
 }
 
 PxVehicleGraph::~PxVehicleGraph()
