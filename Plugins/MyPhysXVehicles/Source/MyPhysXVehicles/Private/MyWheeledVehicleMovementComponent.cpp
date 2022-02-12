@@ -1727,7 +1727,32 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 	{
 		const float GraphWidth(100.0f), GraphHeight(100.0f);
 
-		int GraphChannels[] = {
+		int EngineGraphChannels[] = {
+			PxVehicleDriveGraphChannel::eENGINE_REVS,
+			PxVehicleDriveGraphChannel::eENGINE_DRIVE_TORQUE,
+			PxVehicleDriveGraphChannel::eCLUTCH_SLIP,
+			PxVehicleDriveGraphChannel::eACCEL_CONTROL,
+			PxVehicleDriveGraphChannel::eBRAKE_CONTROL,
+			PxVehicleDriveGraphChannel::eHANDBRAKE_CONTROL,
+			PxVehicleDriveGraphChannel::eSTEER_LEFT_CONTROL,
+			PxVehicleDriveGraphChannel::eSTEER_RIGHT_CONTROL,
+			PxVehicleDriveGraphChannel::eGEAR_RATIO,
+		};
+
+		{
+			float CurX = 4;
+			for (uint32 i = 0; i < UE_ARRAY_COUNT(EngineGraphChannels); ++i)
+			{
+				float OutX = GraphWidth;
+				DrawTelemetryGraph(EngineGraphChannels[i], TelemetryData->getEngineGraph(), Canvas, CurX, YPos, GraphWidth, GraphHeight, OutX);
+				CurX += OutX + 17.f;
+			}
+
+			YPos += GraphHeight + 10.f;
+			YPos += YL;
+		}
+
+		int WheelGraphChannels[] = {
 			PxVehicleWheelGraphChannel::eWHEEL_OMEGA,
 			PxVehicleWheelGraphChannel::eSUSPFORCE,
 			PxVehicleWheelGraphChannel::eTIRE_LONG_SLIP,
@@ -1741,10 +1766,10 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 		for (uint32 w = 0; w < PVehicle->mWheelsSimData.getNbWheels(); ++w)
 		{
 			float CurX = 4;
-			for (uint32 i = 0; i < UE_ARRAY_COUNT(GraphChannels); ++i)
+			for (uint32 i = 0; i < UE_ARRAY_COUNT(WheelGraphChannels); ++i)
 			{
 				float OutX = GraphWidth;
-				DrawTelemetryGraph(GraphChannels[i], TelemetryData->getWheelGraph(w), Canvas, CurX, YPos, GraphWidth, GraphHeight, OutX);
+				DrawTelemetryGraph(WheelGraphChannels[i], TelemetryData->getWheelGraph(w), Canvas, CurX, YPos, GraphWidth, GraphHeight, OutX);
 				CurX += OutX + 17.f;
 			}
 

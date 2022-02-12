@@ -223,7 +223,7 @@ void PxVehicleGraph::setupEngineGraph
 		desc2.mMaxY=1000.0f;
 		desc2.mMidY=0.0f;
 		char title[64];
-		sprintf(title, "engineDriveTorque");
+		sprintf(title, "engineTorque");
 		desc2.mTitle=title;
 		setChannel(desc2,PxVehicleDriveGraphChannel::eENGINE_DRIVE_TORQUE);
 	}
@@ -265,7 +265,7 @@ void PxVehicleGraph::setupEngineGraph
 		desc2.mMaxY=1.1f;
 		desc2.mMidY=0.0f;
 		char title[64];
-		sprintf(title, "brake/tank brake left");
+		sprintf(title, "brake");
 		desc2.mTitle=title;
 		setChannel(desc2,PxVehicleDriveGraphChannel::eBRAKE_CONTROL);
 	}
@@ -279,7 +279,7 @@ void PxVehicleGraph::setupEngineGraph
 		desc2.mMaxY=1.1f;
 		desc2.mMidY=0.0f;
 		char title[64];
-		sprintf(title, "handbrake/tank brake right");
+		sprintf(title, "handbrake");
 		desc2.mTitle=title;
 		setChannel(desc2,PxVehicleDriveGraphChannel::eHANDBRAKE_CONTROL);
 	}
@@ -293,7 +293,7 @@ void PxVehicleGraph::setupEngineGraph
 		desc2.mMaxY=1.1f;
 		desc2.mMidY=0.0f;
 		char title[64];
-		sprintf(title, "steerLeft/tank thrust left");
+		sprintf(title, "steerLeft");
 		desc2.mTitle=title;
 		setChannel(desc2,PxVehicleDriveGraphChannel::eSTEER_LEFT_CONTROL);
 	}
@@ -307,7 +307,7 @@ void PxVehicleGraph::setupEngineGraph
 		desc2.mMaxY=1.1f;
 		desc2.mMidY=0.0f;
 		char title[64];
-		sprintf(title, "steerRight/tank thrust right");
+		sprintf(title, "steerRight");
 		desc2.mTitle=title;
 		setChannel(desc2,PxVehicleDriveGraphChannel::eSTEER_RIGHT_CONTROL);
 	}
