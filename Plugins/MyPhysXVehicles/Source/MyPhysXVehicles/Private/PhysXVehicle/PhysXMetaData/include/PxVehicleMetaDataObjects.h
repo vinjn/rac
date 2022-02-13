@@ -29,7 +29,8 @@
 
 #ifndef PX_VEHICLE_METADATAOBJECTS_H
 #define PX_VEHICLE_METADATAOBJECTS_H
-#include "PxPhysicsAPI.h"
+//#include "PxPhysicsAPI.h"
+#include "PxVehicleSDK.h"
 #include "extensions/PxExtensionsAPI.h"
 #include "PxMetaDataObjects.h"
 #include "PxExtensionMetaDataObjects.h"

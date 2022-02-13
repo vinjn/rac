@@ -35,7 +35,8 @@
 // physx/PhysXMetaDataGenerator/llvm/tools/clang/lib/Frontend/PhysXMetaDataAction.cpp
 #define THERE_IS_NO_INCLUDE_GUARD_HERE_FOR_A_REASON
 
-#include "PxPhysicsAPI.h"
+//#include "PxPhysicsAPI.h"
+#include "PxVehicleSDK.h"
 
 #define PX_PROPERTY_INFO_NAME PxVehiclePropertyInfoName
 	class PxVehicleChassisData;

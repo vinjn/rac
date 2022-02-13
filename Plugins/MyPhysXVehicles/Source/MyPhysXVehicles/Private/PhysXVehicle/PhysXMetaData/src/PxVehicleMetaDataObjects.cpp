@@ -28,7 +28,8 @@
 // Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #include "PxVehicleMetaDataObjects.h"
-#include "PxPhysicsAPI.h"
+//#include "PxPhysicsAPI.h"
+#include "PxVehicleSDK.h"
 #include "extensions/PxExtensionsAPI.h"
 #include "PxVehicleMetaDataObjects.h"
 #include "PxExtensionMetaDataObjects.h"

@@ -35,7 +35,7 @@ namespace UnrealBuildTool.Rules
 
             PublicIncludePaths.AddRange(
                 new string[] {
-                    Path.Combine(PhysXIncludeDir, "vehicle"),
+                    // Path.Combine(PhysXIncludeDir, "vehicle"),
                     Path.Combine(PhysXIncludeDir, "cloth"),
                     Path.Combine(PhysXSharedDir, "src/pvd/include"),
                     Path.Combine(PhysXSharedDir, "src/foundation/include"),
@@ -51,6 +51,7 @@ namespace UnrealBuildTool.Rules
             PrivateIncludePaths.AddRange(
                 new string[] {
                     "MyPhysXVehicles/Private/PhysXVehicle",
+                    "MyPhysXVehicles/Private/PhysXVehicle/vehicle",
                     "MyPhysXVehicles/Private/PhysXVehicle/PhysXMetaData/include",
 
             //         Path.Combine(PhysXIncludeDir, "vehicle"),
