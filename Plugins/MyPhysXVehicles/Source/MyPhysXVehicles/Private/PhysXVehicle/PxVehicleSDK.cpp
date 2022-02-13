@@ -34,9 +34,9 @@
 #include "PsFoundation.h"
 #include "PsUtilities.h"
 #include "PxVehicleDrive4W.h"
-#include "PxVehicleMetaDataObjects.h"
-#include "PxVehicleSerialization.h"
-#include "SnRepXSerializerImpl.h"
+//#include "PxVehicleMetaDataObjects.h"
+//#include "PxVehicleSerialization.h"
+//#include "SnRepXSerializerImpl.h"
 #include "PxSerializer.h"
 #include "PxVehicleDriveTank.h"
 #include "PxVehicleNoDrive.h"
@@ -59,6 +59,7 @@ bool PxInitVehicleSDK(PxPhysics& physics, PxSerializationRegistry* sr)
 
 	setVehicleDefaults();
 
+#if 0
 	setSerializationRegistryPtr(sr);
 	if(sr)
 	{
@@ -77,6 +78,7 @@ bool PxInitVehicleSDK(PxPhysics& physics, PxSerializationRegistry* sr)
 		sr->registerBinaryMetaDataCallback(PxVehicleNoDrive::getBinaryMetaData);
 		sr->registerBinaryMetaDataCallback(PxVehicleDriveNW::getBinaryMetaData);
 	}
+#endif
 	return true;
 }
 
@@ -86,7 +88,7 @@ void PxCloseVehicleSDK(PxSerializationRegistry* sr)
 	resetVehicleToleranceScale();
 
 	setVehicleDefaults();
-
+#if 0
 	if (sr != resetSerializationRegistryPtr())
 	{
 		Ps::getFoundation().error(PxErrorCode::eINVALID_PARAMETER, __FILE__, __LINE__, "PxCloseVehicleSDK called with different PxSerializationRegistry instance than PxInitVehicleSDK.");
@@ -105,6 +107,7 @@ void PxCloseVehicleSDK(PxSerializationRegistry* sr)
 		PX_DELETE_REPX_SERIALIZER(sr->unregisterRepXSerializer(PxVehicleConcreteType::eVehicleNoDrive));
 		PX_DELETE_REPX_SERIALIZER(sr->unregisterRepXSerializer(PxVehicleConcreteType::eVehicleDriveNW));
 	}
+#endif
 }
 /////////////////////////
 

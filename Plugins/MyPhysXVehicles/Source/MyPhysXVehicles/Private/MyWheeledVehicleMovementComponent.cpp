@@ -1510,8 +1510,8 @@ static void DrawTelemetryGraph( uint32 Channel, const PxVehicleGraph& PGraph, UC
 	static_assert(sizeof(GraphMinY) / sizeof(GraphMinY[0]) == PxVehicleWheelGraphChannel::eMAX_NB_WHEEL_CHANNELS, "Must have same number of entries as enum");
 
 	// TODO: change here
-	const float MinY = PGraph.mChannelMinY;
-	const float MaxY = PGraph.mChannelMaxY;
+	const float MinY = GraphMinY[Channel];
+	const float MaxY = GraphMaxY[Channel];
 
 	PxF32 PGraphXY[2*PxVehicleGraph::eMAX_NB_SAMPLES];
 	PxVec3 PGraphColor[PxVehicleGraph::eMAX_NB_SAMPLES];

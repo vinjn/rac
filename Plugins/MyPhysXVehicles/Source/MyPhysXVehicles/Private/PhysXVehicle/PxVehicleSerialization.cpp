@@ -31,8 +31,8 @@
 #include "PxRepXSimpleType.h"
 #include "PxBase.h"
 #include "PxCollection.h"
-#include "PxVehicleMetaDataObjects.h"
-#include "SnRepXSerializerImpl.h"
+//#include "PxVehicleMetaDataObjects.h"
+//#include "SnRepXSerializerImpl.h"
 #include "PxVehicleSuspWheelTire4.h"
 #include "PxVehicleSuspLimitConstraintShader.h"
 #include "PsFPU.h"
@@ -97,6 +97,7 @@ namespace physx
 		return vehNoDrive;
 	}
 
+#if 0
 	template<typename TVehicleType>
 	PxRepXObject PxVehicleRepXSerializer<TVehicleType>::fileToObject( XmlReader& inReader, XmlMemoryAllocator& inAllocator, PxRepXInstantiationArgs& inArgs, PxCollection* inCollection )
 	{
@@ -176,6 +177,7 @@ namespace physx
 		writeProperty( inWriter, *inCollection, inTempBuffer, "NumNonDrivenWheels", drive->getNbNonDrivenWheels());
 		writeAllProperties( drive, inWriter, inTempBuffer, *inCollection );
 	}
+#endif
 
 	PxVehicleNoDrive::PxVehicleNoDrive()
 	: PxVehicleWheels(PxVehicleConcreteType::eVehicleNoDrive, PxBaseFlag::eOWNS_MEMORY | PxBaseFlag::eIS_RELEASABLE)
@@ -195,9 +197,9 @@ namespace physx
 	{}
 
 	// explicit template instantiations
-	template struct PxVehicleRepXSerializer<PxVehicleDrive4W>;
-	template struct PxVehicleRepXSerializer<PxVehicleDriveTank>;
-	template struct PxVehicleRepXSerializer<PxVehicleDriveNW>;
-	template struct PxVehicleRepXSerializer<PxVehicleNoDrive>;
+	//template struct PxVehicleRepXSerializer<PxVehicleDrive4W>;
+	//template struct PxVehicleRepXSerializer<PxVehicleDriveTank>;
+	//template struct PxVehicleRepXSerializer<PxVehicleDriveNW>;
+	//template struct PxVehicleRepXSerializer<PxVehicleNoDrive>;
 
 } 

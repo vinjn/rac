@@ -58,10 +58,10 @@ namespace physx
 
 #if PX_SUPPORT_EXTERN_TEMPLATE
 	// explicit template instantiation declarations
-	extern template struct PxVehicleRepXSerializer<PxVehicleDrive4W>;
-	extern template struct PxVehicleRepXSerializer<PxVehicleDriveTank>;
-	extern template struct PxVehicleRepXSerializer<PxVehicleDriveNW>;
-	extern template struct PxVehicleRepXSerializer<PxVehicleNoDrive>;
+	//extern template struct PxVehicleRepXSerializer<PxVehicleDrive4W>;
+	//extern template struct PxVehicleRepXSerializer<PxVehicleDriveTank>;
+	//extern template struct PxVehicleRepXSerializer<PxVehicleDriveNW>;
+	//extern template struct PxVehicleRepXSerializer<PxVehicleNoDrive>;
 #endif
 
 }
