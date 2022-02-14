@@ -1731,14 +1731,17 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 		}
 
 		int WheelGraphChannels[] = {
-			PxVehicleWheelGraphChannel::eWHEEL_OMEGA,
+			PxVehicleWheelGraphChannel::eJOUNCE,
 			PxVehicleWheelGraphChannel::eSUSPFORCE,
+			PxVehicleWheelGraphChannel::eTIRELOAD,
+			PxVehicleWheelGraphChannel::eNORMALIZED_TIRELOAD,
+			PxVehicleWheelGraphChannel::eWHEEL_OMEGA,
+			PxVehicleWheelGraphChannel::eTIRE_FRICTION,
 			PxVehicleWheelGraphChannel::eTIRE_LONG_SLIP,
 			PxVehicleWheelGraphChannel::eNORM_TIRE_LONG_FORCE,
 			PxVehicleWheelGraphChannel::eTIRE_LAT_SLIP,
 			PxVehicleWheelGraphChannel::eNORM_TIRE_LAT_FORCE,
-			PxVehicleWheelGraphChannel::eNORMALIZED_TIRELOAD,
-			PxVehicleWheelGraphChannel::eTIRE_FRICTION
+			//PxVehicleWheelGraphChannel::eNORM_TIRE_ALIGNING_MOMENT,
 		};
 
 		for (uint32 w = 0; w < PVehicle->mWheelsSimData.getNbWheels(); ++w)
