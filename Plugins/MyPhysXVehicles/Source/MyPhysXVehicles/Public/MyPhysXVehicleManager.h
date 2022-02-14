@@ -11,6 +11,22 @@ class UMyTireConfig;
 class UMyWheeledVehicleMovementComponent;
 class FPhysScene_PhysX;
 
+#include "PxVehicleSuspWheelTire4.h"
+#include "PxVehicleComponents.h"
+#include "PxVehicleDrive.h"
+#include "PxVehicleDrive4W.h"
+#include "PxVehicleDriveTank.h"
+#include "PxVehicleSDK.h"
+#include "PxVehicleShaders.h"
+#include "PxVehicleTireFriction.h"
+#include "PxVehicleUpdate.h"
+#include "PxVehicleUtilControl.h"
+#include "PxVehicleUtilSetup.h"
+#include "PxVehicleUtilTelemetry.h"
+#include "PxVehicleWheels.h"
+#include "PxVehicleNoDrive.h"
+#include "PxVehicleDriveNW.h"
+
 DECLARE_LOG_CATEGORY_EXTERN(LogVehicles, Log, All);
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS

@@ -1487,31 +1487,8 @@ void UMyWheeledVehicleMovementComponent::Serialize(FArchive& Ar)
 #if WITH_PHYSX_VEHICLES
 static void DrawTelemetryGraph( uint32 Channel, const PxVehicleGraph& PGraph, UCanvas* Canvas, float GraphX, float GraphY, float GraphWidth, float GraphHeight, float& OutX )
 {
-
-	//This is very hacky and we should really access this data from physx instead of copying their default values
-	//Copied in order of enum 
-	/*	eJOUNCE = 0,
-	eSUSPFORCE,
-	eTIRELOAD,
-	eNORMALIZED_TIRELOAD,
-	eWHEEL_OMEGA,
-	eTIRE_FRICTION,
-	eTIRE_LONG_SLIP,
-	eNORM_TIRE_LONG_FORCE,
-	eTIRE_LAT_SLIP,
-	eNORM_TIRE_LAT_FORCE,
-	eNORM_TIRE_ALIGNING_MOMENT,
-	eMAX_NB_WHEEL_CHANNELS
-	*/
-
-	float GraphMinY[] = { -2.f, 0.f, 0.f, 0.f, -50.f, 0.f, -0.2f, 0.f, -1.f, 0.f, 0.f };
-	float GraphMaxY[] = { 0.f, 20000.0f, 20000.0f, 3.f, 250.f, 1.1f, 0.2f, 2.f, 1.f, 2.f, 2.f };
-	static_assert(sizeof(GraphMinY) == sizeof(GraphMaxY), "GraphMinY must be the same size as GraphMaxY");
-	static_assert(sizeof(GraphMinY) / sizeof(GraphMinY[0]) == PxVehicleWheelGraphChannel::eMAX_NB_WHEEL_CHANNELS, "Must have same number of entries as enum");
-
-	// TODO: change here
-	const float MinY = GraphMinY[Channel];
-	const float MaxY = GraphMaxY[Channel];
+	const float MinY = PGraph.mChannelMinY[Channel];
+	const float MaxY = PGraph.mChannelMaxY[Channel];
 
 	PxF32 PGraphXY[2*PxVehicleGraph::eMAX_NB_SAMPLES];
 	PxVec3 PGraphColor[PxVehicleGraph::eMAX_NB_SAMPLES];
