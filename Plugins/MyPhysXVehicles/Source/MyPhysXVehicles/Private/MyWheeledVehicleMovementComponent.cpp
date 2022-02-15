@@ -1845,9 +1845,16 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 	const PxTransform T = GlobalT.transform( PActor->getCMassLocalPose() );
 	const PxVec3 ChassisExtent = PActor->getWorldBounds().getExtents();
 	const float ChassisSize = ChassisExtent.magnitude();
-	DrawDebugLine(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(ChassisSize, 0, 0))), FColor::Red);
-	DrawDebugLine(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(0, ChassisSize, 0))), FColor::Green);
-	DrawDebugLine(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(0, 0, ChassisSize))), FColor::Blue);
+	const float ArrowSize = 10;
+	float Thickness = 4.0f;
+#if 0
+	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(ChassisSize, 0, 0))), ArrowSize, FColor::Red,
+		false, -1.f, 0, Thickness);
+	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(0, ChassisSize, 0))), ArrowSize, FColor::Green,
+		false, -1.f, 0, Thickness);
+	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(0, 0, ChassisSize))), ArrowSize, FColor::Blue,
+		false, -1.f, 0, Thickness);
+#endif
 
 	SCOPED_SCENE_READ_LOCK(MyVehicleManager->GetScene());
 	PxVehicleTelemetryData* TelemetryData = MyVehicleManager->GetTelemetryData_AssumesLocked();
@@ -1902,7 +1909,7 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 		// visualize tire load
 		UMyVehicleWheel* Wheel = Wheels[w];
 		const FColor TireLoadColor = Wheel->DebugNormalizedTireLoad > 1 ? FColor(255, 64, 64) : FColor(64, 255, 64);
-		float Thickness = 4.0f;
+		Thickness = 4.0f;
 		DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * 150, TireLoadColor,
 			false, -1.f, 0, Thickness);
 	}
