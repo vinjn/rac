@@ -153,7 +153,8 @@ UMyWheeledVehicleMovementComponent::UMyWheeledVehicleMovementComponent(const FOb
 	SetIsReplicatedByDefault(true);
 
 #if WITH_PHYSX_VEHICLES
-	AHUD::OnShowDebugInfo.AddUObject(this, &UMyWheeledVehicleMovementComponent::ShowDebugInfo);
+	// TODO: disable for the moment
+	//AHUD::OnShowDebugInfo.AddUObject(this, &UMyWheeledVehicleMovementComponent::ShowDebugInfo);
 #endif
 }
 
@@ -174,6 +175,7 @@ void UMyWheeledVehicleMovementComponent::SetUpdatedComponent(USceneComponent* Ne
 
 void UMyWheeledVehicleMovementComponent::ShowDebugInfo(AHUD* HUD, UCanvas* Canvas, const FDebugDisplayInfo& DisplayInfo, float& YL, float& YPos)
 {
+	// disabled now
 	static FName NAME_Vehicle = FName(TEXT("Vehicle"));
 
 	if(Canvas && HUD->ShouldDisplayDebug(NAME_Vehicle))
@@ -1687,8 +1689,8 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 			UMyVehicleWheel* Wheel = Wheels[w];
 			Canvas->DrawText(RenderFont, FString::Printf(TEXT("Normalized Load: %.1f"), Wheel->DebugNormalizedTireLoad), GetXPos(150.f), YPos);
 			Canvas->DrawText(RenderFont, FString::Printf(TEXT("Torque (Nm): %.1f"), Cm2ToM2(Wheel->DebugWheelTorque)), GetXPos(150.f), YPos);
-			Canvas->DrawText(RenderFont, FString::Printf(TEXT("Long Force: %.1fN (%.1f%%)"), Wheel->DebugLongForce / 100.f, 100.f * Wheel->DebugLongForce / Wheel->DebugTireLoad), GetXPos(200.f), YPos);
-			Canvas->DrawText(RenderFont, FString::Printf(TEXT("Lat Force: %.1fN (%.1f%%)"), Wheel->DebugLatForce / 100.f, 100.f * Wheel->DebugLatForce / Wheel->DebugTireLoad), GetXPos(200.f), YPos);
+			Canvas->DrawText(RenderFont, FString::Printf(TEXT("Long Force (N): %.1f (%.1f%%)"), Wheel->DebugLongForce / 100.f, 100.f * Wheel->DebugLongForce / Wheel->DebugTireLoad), GetXPos(200.f), YPos);
+			Canvas->DrawText(RenderFont, FString::Printf(TEXT("Lat Force (N): %.1f (%.1f%%)"), Wheel->DebugLatForce / 100.f, 100.f * Wheel->DebugLatForce / Wheel->DebugTireLoad), GetXPos(200.f), YPos);
 		}
 		else
 		{
@@ -1707,14 +1709,14 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 
 		int EngineGraphChannels[] = {
 			PxVehicleDriveGraphChannel::eENGINE_REVS,
+			PxVehicleDriveGraphChannel::eGEAR_RATIO,
 			PxVehicleDriveGraphChannel::eENGINE_DRIVE_TORQUE,
 			PxVehicleDriveGraphChannel::eCLUTCH_SLIP,
 			PxVehicleDriveGraphChannel::eACCEL_CONTROL,
 			PxVehicleDriveGraphChannel::eBRAKE_CONTROL,
 			PxVehicleDriveGraphChannel::eHANDBRAKE_CONTROL,
-			PxVehicleDriveGraphChannel::eSTEER_LEFT_CONTROL,
+			//PxVehicleDriveGraphChannel::eSTEER_LEFT_CONTROL,
 			PxVehicleDriveGraphChannel::eSTEER_RIGHT_CONTROL,
-			PxVehicleDriveGraphChannel::eGEAR_RATIO,
 		};
 
 		{
@@ -1732,15 +1734,15 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 
 		int WheelGraphChannels[] = {
 			PxVehicleWheelGraphChannel::eJOUNCE,
-			PxVehicleWheelGraphChannel::eSUSPFORCE,
-			PxVehicleWheelGraphChannel::eTIRELOAD,
+			//PxVehicleWheelGraphChannel::eSUSPFORCE,
+			//PxVehicleWheelGraphChannel::eTIRELOAD,
 			PxVehicleWheelGraphChannel::eNORMALIZED_TIRELOAD,
 			PxVehicleWheelGraphChannel::eWHEEL_OMEGA,
 			PxVehicleWheelGraphChannel::eTIRE_FRICTION,
-			PxVehicleWheelGraphChannel::eTIRE_LONG_SLIP,
 			PxVehicleWheelGraphChannel::eNORM_TIRE_LONG_FORCE,
-			PxVehicleWheelGraphChannel::eTIRE_LAT_SLIP,
 			PxVehicleWheelGraphChannel::eNORM_TIRE_LAT_FORCE,
+			PxVehicleWheelGraphChannel::eTIRE_LONG_SLIP,
+			PxVehicleWheelGraphChannel::eTIRE_LAT_SLIP,
 			//PxVehicleWheelGraphChannel::eNORM_TIRE_ALIGNING_MOMENT,
 		};
 
@@ -1758,8 +1760,6 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 			YPos += YL;
 		}
 	}
-
-	DrawDebugLines();
 }
 
 void UMyWheeledVehicleMovementComponent::SetOverrideController(AController* InOverrideController)
@@ -1897,6 +1897,14 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 			const FVector AppPoint2 = P2UVector( PAppPoint2 );
 			DrawDebugBox( World, AppPoint2, FVector(5.0f), FQuat::Identity, FColor( 0, 255, 255 ) );
 		}
+
+		// by vinjn
+		// visualize tire load
+		UMyVehicleWheel* Wheel = Wheels[w];
+		const FColor TireLoadColor = Wheel->DebugNormalizedTireLoad > 1 ? FColor(255, 64, 64) : FColor(64, 255, 64);
+		float Thickness = 4.0f;
+		DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * 150, TireLoadColor,
+			false, -1.f, 0, Thickness);
 	}
 #endif // ENABLE_DRAW_DEBUG
 }

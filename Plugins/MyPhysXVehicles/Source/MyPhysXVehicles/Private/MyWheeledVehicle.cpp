@@ -41,11 +41,17 @@ void AMyWheeledVehicle::DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& D
 
 	Super::DisplayDebug(Canvas, DebugDisplay, YL, YPos);
 
+	// duplicated with UMyWheeledVehicleMovementComponent::ShowDebugInfo()
 	if (DebugDisplay.IsDisplayOn(NAME_Vehicle))
 	{
 #if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
 		GetVehicleMovementComponent()->DrawDebug(Canvas, YL, YPos);
 #endif // WITH_PHYSX
+	}
+
+	if (DebugDisplay.IsDisplayOn("vinjn"))
+	{
+		GetVehicleMovementComponent()->DrawDebugLines();
 	}
 }
 
