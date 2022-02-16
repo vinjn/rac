@@ -1909,9 +1909,17 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 		// visualize tire load
 		UMyVehicleWheel* Wheel = Wheels[w];
 		const FColor TireLoadColor = Wheel->DebugNormalizedTireLoad > 1 ? FColor(255, 64, 64) : FColor(64, 255, 64);
-		Thickness = 4.0f;
-		DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * 150, TireLoadColor,
-			false, -1.f, 0, Thickness);
+		{
+			Thickness = 4.0f;
+			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * 150, TireLoadColor,
+				false, -1.f, 0, Thickness);
+		}
+		// visualize tire angle
+		{
+			DrawDebugDirectionalArrow(World, WheelLocation, WheelLocation + P2UVector(T.p + T.rotate(PxVec3(ChassisSize, 0, 0))), ArrowSize, FColor::Red, false, -1.f, 0, Thickness);
+			//DrawDebugLine(World, WheelLocation, WheelLocation + WheelLatDir * 150, TireLoadColor);
+		}
+
 	}
 #endif // ENABLE_DRAW_DEBUG
 }
