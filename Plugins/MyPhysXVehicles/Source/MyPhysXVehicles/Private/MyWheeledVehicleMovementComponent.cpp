@@ -1862,64 +1862,76 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 	PxWheelQueryResult* WheelsStates = MyVehicleManager->GetWheelsStates_AssumesLocked(this);
 	check(WheelsStates);
 
-	for ( uint32 w = 0; w < PNumWheels; ++w )
+	// by vinjn
+	float NormTireLoad_Sum = 0;
+
+	for (uint32 w = 0; w < PNumWheels; ++w)
 	{
 		// render suspension raycast
-	
-		const FVector SuspensionStart = P2UVector( WheelsStates[w].suspLineStart );
-		const FVector SuspensionEnd = P2UVector( WheelsStates[w].suspLineStart + WheelsStates[w].suspLineDir * WheelsStates[w].suspLineLength );
-		const FColor SuspensionColor = WheelsStates[w].tireSurfaceMaterial == NULL ? FColor(255,64,64) : FColor(64,255,64);
-		DrawDebugLine(World, SuspensionStart, SuspensionEnd, SuspensionColor );
+
+		const FVector SuspensionStart = P2UVector(WheelsStates[w].suspLineStart);
+		const FVector SuspensionEnd = P2UVector(WheelsStates[w].suspLineStart + WheelsStates[w].suspLineDir * WheelsStates[w].suspLineLength);
+		const FColor SuspensionColor = WheelsStates[w].tireSurfaceMaterial == NULL ? FColor(255, 64, 64) : FColor(64, 255, 64);
+		DrawDebugLine(World, SuspensionStart, SuspensionEnd, SuspensionColor);
 
 		// render wheel radii
-		const int32 ShapeIndex = PVehicle->mWheelsSimData.getWheelShapeMapping( w );
+		const int32 ShapeIndex = PVehicle->mWheelsSimData.getWheelShapeMapping(w);
 		const PxF32 WheelRadius = PVehicle->mWheelsSimData.getWheelData(w).mRadius;
 		const PxF32 WheelWidth = PVehicle->mWheelsSimData.getWheelData(w).mWidth;
-		const FTransform WheelTransform = P2UTransform( PActor->getGlobalPose().transform( PShapeBuffer[ShapeIndex]->getLocalPose() ) );
+		const FTransform WheelTransform = P2UTransform(PActor->getGlobalPose().transform(PShapeBuffer[ShapeIndex]->getLocalPose()));
 		const FVector WheelLocation = WheelTransform.GetLocation();
-		const FVector WheelLatDir = WheelTransform.TransformVector( FVector( 0.0f, 1.0f, 0.0f ) );
+		const FVector WheelLatDir = WheelTransform.TransformVector(FVector(0.0f, 1.0f, 0.0f));
 		const FVector WheelLatOffset = WheelLatDir * WheelWidth * 0.50f;
 		//const FVector WheelRotDir = FQuat( WheelLatDir, PVehicle->mWheelsDynData.getWheelRotationAngle(w) ) * FVector( 1.0f, 0.0f, 0.0f );
-		const FVector WheelRotDir = WheelTransform.TransformVector( FVector( 1.0f, 0.0f, 0.0f ) );
+		const FVector WheelRotDir = WheelTransform.TransformVector(FVector(1.0f, 0.0f, 0.0f));
 		const FVector WheelRotOffset = WheelRotDir * WheelRadius;
 
 		const FVector CylinderStart = WheelLocation + WheelLatOffset;
 		const FVector CylinderEnd = WheelLocation - WheelLatOffset;
 
-		DrawDebugCylinder( World, CylinderStart, CylinderEnd, WheelRadius, 16, SuspensionColor );
-		DrawDebugLine( World, WheelLocation, WheelLocation + WheelRotOffset, SuspensionColor );
+		DrawDebugCylinder(World, CylinderStart, CylinderEnd, WheelRadius, 16, SuspensionColor);
+		DrawDebugLine(World, WheelLocation, WheelLocation + WheelRotOffset, SuspensionColor);
 
-		const FVector ContactPoint = P2UVector( WheelsStates[w].tireContactPoint );
-		DrawDebugBox( World, ContactPoint, FVector(4.0f), FQuat::Identity, SuspensionColor );
+		const FVector ContactPoint = P2UVector(WheelsStates[w].tireContactPoint);
+		DrawDebugBox(World, ContactPoint, FVector(4.0f), FQuat::Identity, SuspensionColor);
 
-		if ( TelemetryData )
+		if (TelemetryData)
 		{
 			// Draw all tire force app points.
 			const PxVec3& PAppPoint = TelemetryData->getTireforceAppPoints()[w];
-			const FVector AppPoint = P2UVector( PAppPoint );
-			DrawDebugBox( World, AppPoint, FVector(5.0f), FQuat::Identity, FColor( 255, 0, 255 ) );
+			const FVector AppPoint = P2UVector(PAppPoint);
+			DrawDebugBox(World, AppPoint, FVector(5.0f), FQuat::Identity, FColor(255, 0, 255));
 
 			// Draw all susp force app points.
 			const PxVec3& PAppPoint2 = TelemetryData->getSuspforceAppPoints()[w];
-			const FVector AppPoint2 = P2UVector( PAppPoint2 );
-			DrawDebugBox( World, AppPoint2, FVector(5.0f), FQuat::Identity, FColor( 0, 255, 255 ) );
+			const FVector AppPoint2 = P2UVector(PAppPoint2);
+			DrawDebugBox(World, AppPoint2, FVector(5.0f), FQuat::Identity, FColor(0, 255, 255));
 		}
-
-		// by vinjn
+	
 		// visualize tire load
 		UMyVehicleWheel* Wheel = Wheels[w];
-		const FColor TireLoadColor = Wheel->DebugNormalizedTireLoad > 1 ? FColor(255, 64, 64) : FColor(64, 255, 64);
+		const FColor TireLoadColor = Wheel->DebugNormalizedTireLoad > 1 ? FColor(64, 255, 64) : FColor(255, 64, 64);
+		const float LineScale = 150;
 		{
 			Thickness = 4.0f;
-			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * 150, TireLoadColor,
+			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * LineScale, TireLoadColor,
 				false, -1.f, 0, Thickness);
+			NormTireLoad_Sum += Wheel->DebugNormalizedTireLoad;
+
+			if (w == PNumWheels - 1)
+			{
+				// draw sum in the case of the last wheel
+				//const FColor SumLoadColor = Wheel->DebugNormalizedTireLoad > PNumWheels ? FColor(64, 255, 64) : FColor(255, 64, 64);
+				const FColor SumLoadColor = FColor(64, 200, 64);
+				DrawDebugLine(World, P2UVector(T.p), P2UVector(T.p) + FVector::UpVector * NormTireLoad_Sum * LineScale / PNumWheels, SumLoadColor,
+					false, -1.f, 0, Thickness);
+			}
 		}
 		// visualize tire angle
 		{
 			//DrawDebugDirectionalArrow(World, WheelLocation, WheelLocation + P2UVector(T.p + T.rotate(PxVec3(ChassisSize, 0, 0))), ArrowSize, FColor::Red, false, -1.f, 0, Thickness);
 			//DrawDebugLine(World, WheelLocation, WheelLocation + WheelLatDir * 150, TireLoadColor);
 		}
-
 	}
 #endif // ENABLE_DRAW_DEBUG
 }
