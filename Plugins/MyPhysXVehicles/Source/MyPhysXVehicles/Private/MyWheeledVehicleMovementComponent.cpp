@@ -1916,7 +1916,7 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 		}
 		// visualize tire angle
 		{
-			DrawDebugDirectionalArrow(World, WheelLocation, WheelLocation + P2UVector(T.p + T.rotate(PxVec3(ChassisSize, 0, 0))), ArrowSize, FColor::Red, false, -1.f, 0, Thickness);
+			//DrawDebugDirectionalArrow(World, WheelLocation, WheelLocation + P2UVector(T.p + T.rotate(PxVec3(ChassisSize, 0, 0))), ArrowSize, FColor::Red, false, -1.f, 0, Thickness);
 			//DrawDebugLine(World, WheelLocation, WheelLocation + WheelLatDir * 150, TireLoadColor);
 		}
 
