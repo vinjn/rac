@@ -1879,7 +1879,8 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 		const int32 ShapeIndex = PVehicle->mWheelsSimData.getWheelShapeMapping(w);
 		const PxF32 WheelRadius = PVehicle->mWheelsSimData.getWheelData(w).mRadius;
 		const PxF32 WheelWidth = PVehicle->mWheelsSimData.getWheelData(w).mWidth;
-		const FTransform WheelTransform = P2UTransform(PActor->getGlobalPose().transform(PShapeBuffer[ShapeIndex]->getLocalPose()));
+		const PxTransform WheelT = PActor->getGlobalPose().transform(PShapeBuffer[ShapeIndex]->getLocalPose());
+		const FTransform WheelTransform = P2UTransform(WheelT);
 		const FVector WheelLocation = WheelTransform.GetLocation();
 		const FVector WheelLatDir = WheelTransform.TransformVector(FVector(0.0f, 1.0f, 0.0f));
 		const FVector WheelLatOffset = WheelLatDir * WheelWidth * 0.50f;
@@ -1889,10 +1890,10 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 
 		const FVector CylinderStart = WheelLocation + WheelLatOffset;
 		const FVector CylinderEnd = WheelLocation - WheelLatOffset;
-
+#if 0
 		DrawDebugCylinder(World, CylinderStart, CylinderEnd, WheelRadius, 16, SuspensionColor);
 		DrawDebugLine(World, WheelLocation, WheelLocation + WheelRotOffset, SuspensionColor);
-
+		
 		// render tire contact point
 		const FVector ContactPoint = P2UVector(WheelsStates[w].tireContactPoint);
 		DrawDebugBox(World, ContactPoint, FVector(4.0f), FQuat::Identity, SuspensionColor);
@@ -1909,7 +1910,7 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 			const FVector AppPoint2 = P2UVector(PAppPoint2);
 			DrawDebugBox(World, AppPoint2, FVector(5.0f), FQuat::Identity, FColor(0, 255, 255));
 		}
-	
+#endif
 		UMyVehicleWheel* Wheel = Wheels[w];
 		const FColor TireLoadColor = Wheel->DebugNormalizedTireLoad > 1 ? FColor(64, 255, 64) : FColor(255, 64, 64);
 		const float LineScale = 150;
@@ -1920,9 +1921,18 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * LineScale, TireLoadColor,
 				false, -1.f, 0, Thickness);
 
-			// wheel velocity
-			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::ForwardVector * Wheel->Velocity * LineScale, FColor::Blue,
+			// long slip
+			DrawDebugSphere(World, WheelLocation, Wheel->DebugLongSlip * 100, 10, FColor::Green);
+
+			// lat slip
+			DrawDebugSphere(World, WheelLocation, Wheel->DebugLatSlip * 100, 10, FColor::Red);
+
+#if 0
+			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::ForwardVector * Wheel->DebugLatSlip * LineScale, FColor::Blue,
 				false, -1.f, 0, Thickness);
+			DrawDebugDirectionalArrow(World, P2UVector(WheelT.p), P2UVector(WheelT.p + WheelT.rotate(U2PVector(Wheel->Velocity))), ArrowSize, FColor::Red,
+				false, -1.f, 0, Thickness);
+#endif
 
 #if 0
 			NormTireLoad_Sum += Wheel->DebugNormalizedTireLoad;
