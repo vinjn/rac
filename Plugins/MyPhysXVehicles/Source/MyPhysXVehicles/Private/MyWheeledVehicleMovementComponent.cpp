@@ -1864,6 +1864,7 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 
 	// by vinjn
 	float NormTireLoad_Sum = 0;
+	FVector WheelLocation_Sum;
 
 	for (uint32 w = 0; w < PNumWheels; ++w)
 	{
@@ -1892,6 +1893,7 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 		DrawDebugCylinder(World, CylinderStart, CylinderEnd, WheelRadius, 16, SuspensionColor);
 		DrawDebugLine(World, WheelLocation, WheelLocation + WheelRotOffset, SuspensionColor);
 
+		// render tire contact point
 		const FVector ContactPoint = P2UVector(WheelsStates[w].tireContactPoint);
 		DrawDebugBox(World, ContactPoint, FVector(4.0f), FQuat::Identity, SuspensionColor);
 
@@ -1908,24 +1910,32 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 			DrawDebugBox(World, AppPoint2, FVector(5.0f), FQuat::Identity, FColor(0, 255, 255));
 		}
 	
-		// visualize tire load
 		UMyVehicleWheel* Wheel = Wheels[w];
 		const FColor TireLoadColor = Wheel->DebugNormalizedTireLoad > 1 ? FColor(64, 255, 64) : FColor(255, 64, 64);
 		const float LineScale = 150;
 		{
 			Thickness = 4.0f;
+
+			// tire load
 			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * LineScale, TireLoadColor,
 				false, -1.f, 0, Thickness);
-			NormTireLoad_Sum += Wheel->DebugNormalizedTireLoad;
 
+			// wheel velocity
+			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::ForwardVector * Wheel->Velocity * LineScale, FColor::Blue,
+				false, -1.f, 0, Thickness);
+
+#if 0
+			NormTireLoad_Sum += Wheel->DebugNormalizedTireLoad;
+			WheelLocation_Sum += WheelLocation;
 			if (w == PNumWheels - 1)
 			{
 				// draw sum in the case of the last wheel
-				//const FColor SumLoadColor = Wheel->DebugNormalizedTireLoad > PNumWheels ? FColor(64, 255, 64) : FColor(255, 64, 64);
 				const FColor SumLoadColor = FColor(64, 200, 64);
+				WheelLocation_Sum /= 4;
 				DrawDebugLine(World, P2UVector(T.p), P2UVector(T.p) + FVector::UpVector * NormTireLoad_Sum * LineScale / PNumWheels, SumLoadColor,
-					false, -1.f, 0, Thickness);
+					false, -1.f, 0, Thickness * 2);
 			}
+#endif
 		}
 		// visualize tire angle
 		{

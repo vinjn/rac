@@ -52,7 +52,7 @@ namespace UnrealBuildTool.Rules
                 new string[] {
                     "MyPhysXVehicles/Private/PhysXVehicle",
                     "MyPhysXVehicles/Private/PhysXVehicle/vehicle",
-                    "MyPhysXVehicles/Private/PhysXVehicle/PhysXMetaData/include",
+                    // "MyPhysXVehicles/Private/PhysXVehicle/PhysXMetaData/include",
 
             //         Path.Combine(PhysXIncludeDir, "vehicle"),
             //         Path.Combine(PhysXSrcDir, "PhysXExtensions/src/serialization/Xml"),
