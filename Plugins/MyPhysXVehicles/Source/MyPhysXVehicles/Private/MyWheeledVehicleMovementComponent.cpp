@@ -1922,10 +1922,10 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 				false, -1.f, 0, Thickness);
 
 			// long slip
-			DrawDebugSphere(World, WheelLocation, Wheel->DebugLongSlip * 100, 10, FColor::Green);
+			//DrawDebugSphere(World, WheelLocation, Wheel->DebugLongSlip * 100, 10, FColor::Green);
 
 			// lat slip
-			DrawDebugSphere(World, WheelLocation, Wheel->DebugLatSlip * 100, 10, FColor::Red);
+			DrawDebugSphere(World, WheelLocation, abs(Wheel->DebugLatSlip) * 100, 10, Wheel->DebugLatSlip > 0 ? FColor::Green : FColor::Red);
 
 #if 0
 			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::ForwardVector * Wheel->DebugLatSlip * LineScale, FColor::Blue,
