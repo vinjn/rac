@@ -1,5 +1,9 @@
 # rac
 
+
+## mklink
+mklink /J C:\UE_4.27 "d:\Epic Games\UE_4.27"
+
 ## accept Android license
 - set JAVA_HOME
 - D:\android-sdk\tools\bin\sdkmanager.bat --update

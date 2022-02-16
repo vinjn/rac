@@ -10,7 +10,7 @@ public class RDiVehicle : ModuleRules
 		
 		PublicIncludePaths.AddRange(
 			new string[] {
-				"RDiVehicle/Public"
+				// "RDiVehicle/Public"
 				
 				// ... add public include paths required here ...
 			}
