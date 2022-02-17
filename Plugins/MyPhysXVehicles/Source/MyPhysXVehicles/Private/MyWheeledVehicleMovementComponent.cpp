@@ -1549,8 +1549,8 @@ bool UMyWheeledVehicleMovementComponent::CheckSlipThreshold(float AbsLongSlipThr
 	PxWheelQueryResult * WheelsStates = MyVehicleManager->GetWheelsStates_AssumesLocked(this);
 	check(WheelsStates);
 
-	PxReal MaxLongSlip = 0.f;
-	PxReal MaxLatSlip = 0.f;
+	//PxReal MaxLongSlip = 0.f;
+	//PxReal MaxLatSlip = 0.f;
 
 	// draw wheel data
 	for (uint32 w = 0; w < PVehicle->mWheelsSimData.getNbWheels(); ++w)
@@ -1845,11 +1845,20 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 	const PxTransform T = GlobalT.transform( PActor->getCMassLocalPose() );
 	const PxVec3 ChassisExtent = PActor->getWorldBounds().getExtents();
 	const float ChassisSize = ChassisExtent.magnitude();
-	const float ArrowSize = 10;
+	const float ArrowSize = 20;
 	float Thickness = 4.0f;
-#if 0
-	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(ChassisSize, 0, 0))), ArrowSize, FColor::Red,
+	
+	// car orientation
+	const float ArrowLength = 100;
+	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(ArrowLength, 0, 0))), ArrowSize, FColor::Green,
 		false, -1.f, 0, Thickness);
+	// car velocity
+	auto vel = PActor->getLinearVelocity();
+	vel.normalize();
+	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + vel * ArrowLength), ArrowSize, FColor::Red,
+		false, -1.f, 0, Thickness);
+
+#if 0
 	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(0, ChassisSize, 0))), ArrowSize, FColor::Green,
 		false, -1.f, 0, Thickness);
 	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(0, 0, ChassisSize))), ArrowSize, FColor::Blue,
@@ -1922,10 +1931,10 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 				false, -1.f, 0, Thickness);
 
 			// long slip
-			//DrawDebugSphere(World, WheelLocation, Wheel->DebugLongSlip * 100, 10, FColor::Green);
+			DrawDebugBox(World, WheelLocation, FVector(Wheel->DebugLongSlip * 100), Wheel->DebugLongSlip > 0 ? FColor::Green : FColor::Red);
 
 			// lat slip
-			DrawDebugSphere(World, WheelLocation, abs(Wheel->DebugLatSlip) * 100, 10, Wheel->DebugLatSlip > 0 ? FColor::Green : FColor::Red);
+			DrawDebugSphere(World, WheelLocation, Wheel->DebugLatSlip * 100, 10, Wheel->DebugLatSlip > 0 ? FColor::Green : FColor::Red);
 
 #if 0
 			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::ForwardVector * Wheel->DebugLatSlip * LineScale, FColor::Blue,
@@ -1953,6 +1962,8 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 			//DrawDebugLine(World, WheelLocation, WheelLocation + WheelLatDir * 150, TireLoadColor);
 		}
 	}
+
+
 #endif // ENABLE_DRAW_DEBUG
 }
 
