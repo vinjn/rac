@@ -1851,7 +1851,7 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 	// car orientation
 	const float ArrowLength = 100;
 	auto PosAbove = T.p + PxVec3(0, 0, ChassisExtent.z * 1.5);
-	DrawDebugDirectionalArrow(World, P2UVector(PosAbove), P2UVector(PosAbove + T.rotate(PxVec3(ArrowLength, 0, 0))), ArrowSize, FColor::Silver,
+	DrawDebugDirectionalArrow(World, P2UVector(PosAbove), P2UVector(PosAbove + T.rotate(PxVec3(ArrowLength, 0, 0))), ArrowSize, FColor::Blue,
 		false, -1.f, 0, Thickness);
 	// car velocity
 	auto vel = PActor->getLinearVelocity();
@@ -1932,7 +1932,8 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 				false, -1.f, 0, Thickness);
 
 			// long slip
-			DrawDebugBox(World, WheelLocation, FVector(Wheel->DebugLongSlip * 100), Wheel->DebugLongSlip > 0 ? FColor::Green : FColor::Red);
+			auto WheelQuat = FQuat(WheelLatDir, PVehicle->mWheelsDynData.getWheelRotationAngle(w));
+			DrawDebugBox(World, WheelLocation, FVector(Wheel->DebugLongSlip * 100), /*WheelQuat, */Wheel->DebugLongSlip > 0 ? FColor::Green : FColor::Red);
 
 			// lat slip
 			DrawDebugSphere(World, WheelLocation, Wheel->DebugLatSlip * 100, 10, Wheel->DebugLatSlip > 0 ? FColor::Green : FColor::Red);
