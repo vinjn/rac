@@ -1850,12 +1850,13 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 	
 	// car orientation
 	const float ArrowLength = 100;
-	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + T.rotate(PxVec3(ArrowLength, 0, 0))), ArrowSize, FColor::Green,
+	auto PosAbove = T.p + PxVec3(0, 0, ChassisExtent.z * 1.5);
+	DrawDebugDirectionalArrow(World, P2UVector(PosAbove), P2UVector(PosAbove + T.rotate(PxVec3(ArrowLength, 0, 0))), ArrowSize, FColor::Silver,
 		false, -1.f, 0, Thickness);
 	// car velocity
 	auto vel = PActor->getLinearVelocity();
 	vel.normalize();
-	DrawDebugDirectionalArrow(World, P2UVector(T.p), P2UVector(T.p + vel * ArrowLength), ArrowSize, FColor::Red,
+	DrawDebugLine(World, P2UVector(PosAbove), P2UVector(PosAbove + vel * ArrowLength), FColor::Orange,
 		false, -1.f, 0, Thickness);
 
 #if 0
@@ -1921,13 +1922,13 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 		}
 #endif
 		UMyVehicleWheel* Wheel = Wheels[w];
-		const FColor TireLoadColor = Wheel->DebugNormalizedTireLoad > 1 ? FColor(64, 255, 64) : FColor(255, 64, 64);
 		const float LineScale = 150;
 		{
 			Thickness = 4.0f;
 
 			// tire load
-			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * LineScale, TireLoadColor,
+			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * LineScale, 
+				Wheel->DebugNormalizedTireLoad > 0.995 ? FColor(64, 255, 64) : FColor(255, 64, 64),
 				false, -1.f, 0, Thickness);
 
 			// long slip
@@ -1936,10 +1937,13 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 			// lat slip
 			DrawDebugSphere(World, WheelLocation, Wheel->DebugLatSlip * 100, 10, Wheel->DebugLatSlip > 0 ? FColor::Green : FColor::Red);
 
+			// wheel velocity
 #if 0
-			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::ForwardVector * Wheel->DebugLatSlip * LineScale, FColor::Blue,
-				false, -1.f, 0, Thickness);
-			DrawDebugDirectionalArrow(World, P2UVector(WheelT.p), P2UVector(WheelT.p + WheelT.rotate(U2PVector(Wheel->Velocity))), ArrowSize, FColor::Red,
+			auto NewPos = WheelLocation;
+			NewPos.Z = PosAbove.z;
+			auto WheelVel = Wheel->Velocity;
+			WheelVel.Normalize();
+			DrawDebugDirectionalArrow(World, NewPos, NewPos + WheelVel * 50, ArrowSize, FColor::Red,
 				false, -1.f, 0, Thickness);
 #endif
 
