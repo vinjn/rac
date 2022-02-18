@@ -15,5 +15,10 @@ mklink /J C:\UE_4.27 "d:\Epic Games\UE_4.27"
     - look for `CONSOLE_SPINNER_ITEMS`
 - Rename c:\UE_4.27\Engine\Source\ThirdParty\heapprofd\arm64-v8a\libheapprofd_standalone_client.so
 
-## fov converter
-https://themetalmuncher.github.io/fov-calc/
+## tools
+- [fov converter](https://themetalmuncher.github.io/fov-calc/)
+
+## forza turning
+- [Forza Telemetry Guide | How to Read and Use Telemetry to Tune](https://www.youtube.com/watch?v=74IcqCQFzjI)
+
+ 
