@@ -14,3 +14,6 @@ mklink /J C:\UE_4.27 "d:\Epic Games\UE_4.27"
 - c:\UE_4.27\Engine\Build\Android\Java\src\com\epicgames\ue4\GameActivity.java.template
     - look for `CONSOLE_SPINNER_ITEMS`
 - Rename c:\UE_4.27\Engine\Source\ThirdParty\heapprofd\arm64-v8a\libheapprofd_standalone_client.so
+
+## fov converter
+https://themetalmuncher.github.io/fov-calc/
