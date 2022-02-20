@@ -351,6 +351,9 @@ public:
 	/** Draw debug text for the wheels and suspension */
 	virtual void DrawDebug(UCanvas* Canvas, float& YL, float& YPos);
 
+	/** Draw debug graphs for the vehicle and wheels */
+	virtual void DrawDebugGraphs(UCanvas* Canvas, float& YL, float& YPos);
+
 	/** Draw debug lines for the wheels and suspension */
 	virtual void DrawDebugLines();
 

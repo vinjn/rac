@@ -1699,8 +1699,18 @@ void UMyWheeledVehicleMovementComponent::DrawDebug(UCanvas* Canvas, float& YL, f
 
 		YPos += YL * 1.2f;
 	}
+}
 
-	// draw wheel graphs
+
+void UMyWheeledVehicleMovementComponent::DrawDebugGraphs(UCanvas* Canvas, float& YL, float& YPos)
+{
+	if (PVehicle == NULL)
+	{
+		return;
+	}
+
+	FMyPhysXVehicleManager* MyVehicleManager = FMyPhysXVehicleManager::GetVehicleManagerFromScene(GetWorld()->GetPhysicsScene());
+
 	PxVehicleTelemetryData* TelemetryData = MyVehicleManager->GetTelemetryData_AssumesLocked();
 
 	if (TelemetryData)
@@ -1900,13 +1910,17 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 
 		const FVector CylinderStart = WheelLocation + WheelLatOffset;
 		const FVector CylinderEnd = WheelLocation - WheelLatOffset;
+	
+		// draw wheel
 #if 0
 		DrawDebugCylinder(World, CylinderStart, CylinderEnd, WheelRadius, 16, SuspensionColor);
 		DrawDebugLine(World, WheelLocation, WheelLocation + WheelRotOffset, SuspensionColor);
-		
+#endif
+
 		// render tire contact point
 		const FVector ContactPoint = P2UVector(WheelsStates[w].tireContactPoint);
 		DrawDebugBox(World, ContactPoint, FVector(4.0f), FQuat::Identity, SuspensionColor);
+#if 0
 
 		if (TelemetryData)
 		{

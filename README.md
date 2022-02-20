@@ -19,6 +19,7 @@ mklink /J C:\UE_4.27 "d:\Epic Games\UE_4.27"
 - [fov converter](https://themetalmuncher.github.io/fov-calc/)
 
 ## forza turning
+- [Power vs Torque - In Depth Explanation and Mythbusting!](https://www.youtube.com/watch?v=X7KWtf4wqN4)
 - [Forza Telemetry Guide | How to Read and Use Telemetry to Tune](https://www.youtube.com/watch?v=74IcqCQFzjI)
 
  

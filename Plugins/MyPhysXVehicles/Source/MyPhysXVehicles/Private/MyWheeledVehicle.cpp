@@ -37,22 +37,13 @@ AMyWheeledVehicle::AMyWheeledVehicle(const FObjectInitializer& ObjectInitializer
 
 void AMyWheeledVehicle::DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& DebugDisplay, float& YL, float& YPos)
 {
-	static FName NAME_Vehicle = FName(TEXT("Vehicle"));
-
 	Super::DisplayDebug(Canvas, DebugDisplay, YL, YPos);
-
-	// duplicated with UMyWheeledVehicleMovementComponent::ShowDebugInfo()
-	if (DebugDisplay.IsDisplayOn(NAME_Vehicle))
-	{
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
-		GetVehicleMovementComponent()->DrawDebug(Canvas, YL, YPos);
-#endif // WITH_PHYSX
-	}
-
-	if (DebugDisplay.IsDisplayOn("vinjn"))
-	{
+	GetVehicleMovementComponent()->DrawDebug(Canvas, YL, YPos);
+	
+	if (DebugMode == Mode_DrawDebugGraphs)
+		GetVehicleMovementComponent()->DrawDebugGraphs(Canvas, YL, YPos);
+	else if (DebugMode == Mode_DrawDebugLine)
 		GetVehicleMovementComponent()->DrawDebugLines();
-	}
 }
 
 class UMyWheeledVehicleMovementComponent* AMyWheeledVehicle::GetVehicleMovementComponent() const

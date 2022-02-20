@@ -19,6 +19,15 @@ class FDebugDisplayInfo;
  * @see UMyWheeledVehicleMovementComponent4W
  */
 
+enum EDebugMode
+{
+	Mode_None,
+	Mode_DrawDebugGraphs,
+	Mode_DrawDebugLine,
+
+	Mode_Count,
+};
+
 UCLASS(abstract, config=Game, BlueprintType)
 class  AMyWheeledVehicle : public APawn
 {
@@ -33,6 +42,8 @@ private:
 	UPROPERTY(Category = Vehicle, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UMyWheeledVehicleMovementComponent* VehicleMovement;
 public:
+
+	int DebugMode = Mode_None;
 
 	/** Name of the MeshComponent. Use this name if you want to prevent creation of the component (with ObjectInitializer.DoNotCreateDefaultSubobject). */
 	static FName VehicleMeshComponentName;
