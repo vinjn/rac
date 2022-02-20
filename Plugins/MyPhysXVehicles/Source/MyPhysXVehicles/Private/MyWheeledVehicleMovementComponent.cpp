@@ -1841,7 +1841,8 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 
 	FMyPhysXVehicleManager* MyVehicleManager = FMyPhysXVehicleManager::GetVehicleManagerFromScene(World->GetPhysicsScene());
 
-	MyVehicleManager->SetRecordTelemetry( this, true );
+	// TODO
+	//MyVehicleManager->SetRecordTelemetry( this, true );
 
 	PxRigidDynamic* PActor = PVehicle->getRigidDynamicActor();
 
@@ -1979,6 +1980,66 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 		{
 			//DrawDebugDirectionalArrow(World, WheelLocation, WheelLocation + P2UVector(T.p + T.rotate(PxVec3(ChassisSize, 0, 0))), ArrowSize, FColor::Red, false, -1.f, 0, Thickness);
 			//DrawDebugLine(World, WheelLocation, WheelLocation + WheelLatDir * 150, TireLoadColor);
+		}
+	}
+
+
+#endif // ENABLE_DRAW_DEBUG
+}
+
+void UMyWheeledVehicleMovementComponent::DrawTireForces()
+{
+#if ENABLE_DRAW_DEBUG
+
+	if (PVehicle == NULL)
+	{
+		return;
+	}
+
+	UWorld* World = GetWorld();
+
+	// TODO: check later
+	
+	//FMyPhysXVehicleManager* MyVehicleManager = FMyPhysXVehicleManager::GetVehicleManagerFromScene(World->GetPhysicsScene());
+	//MyVehicleManager->SetRecordTelemetry(this, true);
+
+	PxRigidDynamic* PActor = PVehicle->getRigidDynamicActor();
+
+	// gather wheel shapes
+	PxShape* PShapeBuffer[32];
+	PActor->getShapes(PShapeBuffer, 32);
+	const uint32 PNumWheels = PVehicle->mWheelsSimData.getNbWheels();
+
+	for (uint32 w = 0; w < PNumWheels; ++w)
+	{
+		// render wheel radii
+		const int32 ShapeIndex = PVehicle->mWheelsSimData.getWheelShapeMapping(w);
+		const PxF32 WheelRadius = PVehicle->mWheelsSimData.getWheelData(w).mRadius;
+		const PxF32 WheelWidth = PVehicle->mWheelsSimData.getWheelData(w).mWidth;
+		const PxTransform WheelT = PActor->getGlobalPose().transform(PShapeBuffer[ShapeIndex]->getLocalPose());
+		const FTransform WheelTransform = P2UTransform(WheelT);
+		const FVector WheelLocation = WheelTransform.GetLocation();
+		const FVector WheelLatDir = WheelTransform.TransformVector(FVector(0.0f, 1.0f, 0.0f));
+		const FVector WheelLatOffset = WheelLatDir * WheelWidth * 0.50f;
+		//const FVector WheelRotDir = FQuat( WheelLatDir, PVehicle->mWheelsDynData.getWheelRotationAngle(w) ) * FVector( 1.0f, 0.0f, 0.0f );
+		const FVector WheelRotDir = WheelTransform.TransformVector(FVector(1.0f, 0.0f, 0.0f));
+		const FVector WheelRotOffset = WheelRotDir * WheelRadius;
+
+		const FVector CylinderStart = WheelLocation + WheelLatOffset;
+		const FVector CylinderEnd = WheelLocation - WheelLatOffset;
+
+		UMyVehicleWheel* Wheel = Wheels[w];
+		const float LineScale = 150;
+		{
+			float Thickness = 4.0f;
+
+			// long force
+			float normLongF = Wheel->DebugLongForce / Wheel->DebugTireLoad;
+			DrawDebugBox(World, WheelLocation, FVector(normLongF * 100), /*WheelQuat, */normLongF > 0 ? FColor::Green : FColor::Red);
+
+			// lat force
+			float normLatF = Wheel->DebugLatForce / Wheel->DebugTireLoad;
+			DrawDebugSphere(World, WheelLocation, normLatF * 100, 10, normLatF > 0 ? FColor::Green : FColor::Red);
 		}
 	}
 

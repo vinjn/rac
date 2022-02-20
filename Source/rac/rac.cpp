@@ -39,7 +39,7 @@ public:
 		{
 			vehicle->DebugMode--;
 			if (vehicle->DebugMode < Mode_None)
-				vehicle->DebugMode = Mode_DrawDebugLine;
+				vehicle->DebugMode = Mode_Count - 1;
 		}
 
 		return true;

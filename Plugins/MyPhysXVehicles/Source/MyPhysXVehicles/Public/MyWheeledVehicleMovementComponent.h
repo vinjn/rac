@@ -356,6 +356,7 @@ public:
 
 	/** Draw debug lines for the wheels and suspension */
 	virtual void DrawDebugLines();
+	virtual void DrawTireForces();
 
 	/** Skeletal mesh needs some special handling in the vehicle case */
 	virtual void FixupSkeletalMesh();

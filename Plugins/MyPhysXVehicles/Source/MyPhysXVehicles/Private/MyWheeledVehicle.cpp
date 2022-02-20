@@ -44,6 +44,8 @@ void AMyWheeledVehicle::DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& D
 		GetVehicleMovementComponent()->DrawDebugGraphs(Canvas, YL, YPos);
 	else if (DebugMode == Mode_DrawDebugLine)
 		GetVehicleMovementComponent()->DrawDebugLines();
+	else if (DebugMode == Mode_DrawTireForces)
+		GetVehicleMovementComponent()->DrawTireForces();
 }
 
 class UMyWheeledVehicleMovementComponent* AMyWheeledVehicle::GetVehicleMovementComponent() const
