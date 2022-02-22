@@ -1916,12 +1916,10 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 #if 0
 		DrawDebugCylinder(World, CylinderStart, CylinderEnd, WheelRadius, 16, SuspensionColor);
 		DrawDebugLine(World, WheelLocation, WheelLocation + WheelRotOffset, SuspensionColor);
-#endif
 
 		// render tire contact point
 		const FVector ContactPoint = P2UVector(WheelsStates[w].tireContactPoint);
 		DrawDebugBox(World, ContactPoint, FVector(4.0f), FQuat::Identity, SuspensionColor);
-#if 0
 
 		if (TelemetryData)
 		{
@@ -1948,10 +1946,10 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 
 			// long slip
 			auto WheelQuat = FQuat(WheelLatDir, PVehicle->mWheelsDynData.getWheelRotationAngle(w));
-			DrawDebugBox(World, WheelLocation, FVector(Wheel->DebugLongSlip * 100), /*WheelQuat, */Wheel->DebugLongSlip > 0 ? FColor::Green : FColor::Red);
+			DrawDebugBox(World, WheelLocation, FVector(Wheel->DebugLongSlip * 100), FColor::Green);
 
 			// lat slip
-			DrawDebugSphere(World, WheelLocation, Wheel->DebugLatSlip * 100, 10, Wheel->DebugLatSlip > 0 ? FColor::Green : FColor::Red);
+			DrawDebugSphere(World, WheelLocation, Wheel->DebugLatSlip * 100, 10, FColor::Red);
 
 			// wheel velocity
 #if 0

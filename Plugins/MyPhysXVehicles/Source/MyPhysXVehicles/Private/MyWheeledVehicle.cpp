@@ -11,6 +11,7 @@
 #include "MyWheeledVehicleMovementComponent.h"
 #include "MyWheeledVehicleMovementComponent4W.h"
 #include "DisplayDebugHelpers.h"
+#include "Engine/Canvas.h"
 
 FName AMyWheeledVehicle::VehicleMovementComponentName(TEXT("MovementComp"));
 FName AMyWheeledVehicle::VehicleMeshComponentName(TEXT("VehicleMesh"));
@@ -38,14 +39,24 @@ AMyWheeledVehicle::AMyWheeledVehicle(const FObjectInitializer& ObjectInitializer
 void AMyWheeledVehicle::DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& DebugDisplay, float& YL, float& YPos)
 {
 	Super::DisplayDebug(Canvas, DebugDisplay, YL, YPos);
-	GetVehicleMovementComponent()->DrawDebug(Canvas, YL, YPos);
 	
+	UFont* RenderFont = GEngine->GetLargeFont();
+
+	GetVehicleMovementComponent()->DrawDebug(Canvas, YL, YPos);
 	if (DebugMode == Mode_DrawDebugGraphs)
 		GetVehicleMovementComponent()->DrawDebugGraphs(Canvas, YL, YPos);
 	else if (DebugMode == Mode_DrawDebugLine)
+	{
+		Canvas->SetDrawColor(FColor::Red);
+		Canvas->DrawText(RenderFont, "Tire Load and Slips", 4, YPos);
 		GetVehicleMovementComponent()->DrawDebugLines();
+	}
 	else if (DebugMode == Mode_DrawTireForces)
+	{
+		Canvas->SetDrawColor(FColor::Red);
+		Canvas->DrawText(RenderFont, "Tire Forces", 4, YPos);
 		GetVehicleMovementComponent()->DrawTireForces();
+	}
 }
 
 class UMyWheeledVehicleMovementComponent* AMyWheeledVehicle::GetVehicleMovementComponent() const

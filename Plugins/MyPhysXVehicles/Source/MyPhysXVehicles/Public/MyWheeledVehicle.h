@@ -22,7 +22,7 @@ class FDebugDisplayInfo;
 enum EDebugMode
 {
 	Mode_None,
-	Mode_DrawDebugGraphs = Mode_None,
+	Mode_DrawDebugGraphs,
 	Mode_DrawDebugLine,
 	Mode_DrawTireForces,
 
