@@ -336,8 +336,8 @@ public class GameActivity extends $${gameActivitySuperClass}$$ implements Surfac
 
 	// Console
 	private static final String CONSOLE_SPINNER_ITEMS[] = {"Common Console Commands", 
-		"showdebug vinjn",
-		"stat none", "stat Unit", "showdebug", "showdebug vehicle",
+		"showdebug", "gm left", "gm right",
+		"stat none", "stat Unit",
 		"stat FPS", "stat Anim","stat OpenGLRHI","stat VulkanRHI","stat DumpEvents","stat DumpFrame",
 		"stat DumpHitches","stat Engine","stat Game","stat Grouped","stat Hitches","stat InitViews","stat LightRendering",
 		"stat Memory","stat Particles","stat SceneRendering","stat SceneUpdate","stat ShadowRendering","stat Slow",
