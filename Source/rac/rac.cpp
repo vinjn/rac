@@ -10,7 +10,6 @@
 
 #if PLATFORM_WINDOWS || PLATFORM_ANDROID
 #include "renderdoc_app.h"
-RENDERDOC_API_1_5_0* rdoc_api = NULL;
 #endif
 
 #if PLATFORM_ANDROID
@@ -53,24 +52,43 @@ public:
 #if PLATFORM_WINDOWS || PLATFORM_ANDROID
 		else if (ArgNoWhitespaces.Equals("rdc"))
 		{
+			static RENDERDOC_API_1_5_0* rdoc_api = NULL;
 			// Dynamically link renderdoc library and get the api handle
-#if 0 && PLATFORM_WINDOWS
-			if (HMODULE mod = GetModuleHandleA("renderdoc.dll"))
-			{
-				pRENDERDOC_GetAPI RENDERDOC_GETAPI = (pRENDERDOC_GetAPI)GetProcAddressA(mod, "RENDERDOC_GetAPI");
-				int ret = RENDERDOC_GETAPI(eRENDERDOC_API_Version_1_5_0, (void**)&rdoc_api);
-			}
-#elif PLATFORM_ANDROID
-			if (void* mod = dlopen("libVkLayer_GLES_RenderDoc.so", RTLD_NOW | RTLD_NOLOAD))
-			{
-				pRENDERDOC_GetAPI RENDERDOC_GetAPI = (pRENDERDOC_GetAPI)dlsym(mod, "RENDERDOC_GetAPI");
-				int ret = RENDERDOC_GetAPI(eRENDERDOC_API_Version_1_5_0, (void**)&rdoc_api);
-			}
-#endif
-
 			UE_LOG(LogTemp, Warning, TEXT("Trigger renderdoc capture"));
-			if (rdoc_api)
-				rdoc_api->TriggerCapture();
+
+			if (rdoc_api == NULL)
+            {
+#if 0 && PLATFORM_WINDOWS
+                if (HMODULE mod = GetModuleHandleA("renderdoc.dll"))
+                {
+                    pRENDERDOC_GetAPI RENDERDOC_GETAPI = (pRENDERDOC_GetAPI)GetProcAddressA(mod, "RENDERDOC_GetAPI");
+                    int ret = RENDERDOC_GETAPI(eRENDERDOC_API_Version_1_5_0, (void**)&rdoc_api);
+                }
+#elif PLATFORM_ANDROID
+                if (void* mod = dlopen("libVkLayer_GLES_RenderDoc.so", RTLD_NOW | RTLD_NOLOAD))
+                {
+                    pRENDERDOC_GetAPI RENDERDOC_GetAPI = (pRENDERDOC_GetAPI)dlsym(mod, "RENDERDOC_GetAPI");
+                    int ret = RENDERDOC_GetAPI(eRENDERDOC_API_Version_1_5_0, (void**)&rdoc_api);
+                }
+#endif
+			}
+			rdoc_api->TriggerCapture();
+			uint32_t NumCaptrues = rdoc_api->GetNumCaptures();
+			if (NumCaptrues > 0)
+			{
+				uint32_t pathlength = 0;
+				uint32_t idx = NumCaptrues - 1;
+				rdoc_api->GetCapture(idx, NULL, &pathlength, NULL);
+				if (pathlength > 0)
+				{
+					char* filename = new char[pathlength+1];
+					rdoc_api->GetCapture(idx, filename, NULL, NULL);
+					FString str(filename);
+					UE_LOG(LogTemp, Warning, TEXT("[%d]: %s"), idx, *str);
+
+					delete[] filename;
+				}
+			}
 		}
 #endif
 
