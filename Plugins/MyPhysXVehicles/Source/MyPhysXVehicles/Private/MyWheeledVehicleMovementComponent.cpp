@@ -89,6 +89,7 @@ static void PTireShader(const void* shaderData, const PxF32 tireFriction,
 	Wheel->DebugLatSlip = latSlip;
 	Wheel->DebugNormalizedTireLoad = normalisedTireLoad;
 	Wheel->DebugTireLoad = tireLoad;
+	Wheel->DebugRestTireLoad = restTireLoad;
 	Wheel->DebugWheelTorque = wheelTorque;
 	Wheel->DebugLongForce = tireLongForceMag;
 	Wheel->DebugLatForce = tireLatForceMag;
@@ -1940,9 +1941,20 @@ void UMyWheeledVehicleMovementComponent::DrawDebugLines()
 			Thickness = 4.0f;
 
 			// tire load
+			FColor Color = FColor::Green;
+			if (Wheel->DebugNormalizedTireLoad > Wheel->LatStiffMaxLoad)
+			{
+				// this wheel is slipping
+				Color = FColor::Red;
+			}
+			else if (Wheel->DebugNormalizedTireLoad > 1.005)
+			{
+				// this wheel is gaining more load
+				Color = FColor::Orange;
+			}
+
 			DrawDebugLine(World, WheelLocation, WheelLocation + FVector::UpVector * Wheel->DebugNormalizedTireLoad * LineScale, 
-				Wheel->DebugNormalizedTireLoad > 0.995 ? FColor(64, 255, 64) : FColor(255, 64, 64),
-				false, -1.f, 0, Thickness);
+				Color, false, -1.f, 0, Thickness);
 
 			// long slip
 			auto WheelQuat = FQuat(WheelLatDir, PVehicle->mWheelsDynData.getWheelRotationAngle(w));

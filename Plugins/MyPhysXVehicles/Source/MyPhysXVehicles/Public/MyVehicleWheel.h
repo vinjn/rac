@@ -171,6 +171,8 @@ class MYPHYSXVEHICLES_API UMyVehicleWheel : public UObject
 	//How much force the tire is experiencing now
 	float											DebugTireLoad;
 
+	float											DebugRestTireLoad;
+
 	// Wheel torque
 	UPROPERTY(transient)
 	float											DebugWheelTorque;
