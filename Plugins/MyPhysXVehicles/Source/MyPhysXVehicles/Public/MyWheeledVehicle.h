@@ -23,8 +23,8 @@ enum EDebugMode
 {
 	Mode_None,
 	Mode_DrawDebugGraphs,
-	Mode_DrawDebugLine,
 	Mode_DrawTireForces,
+	Mode_DrawDebugLine,
 
 	Mode_Count,
 };
@@ -54,6 +54,8 @@ public:
 
 	/** Util to get the wheeled vehicle movement component */
 	class UMyWheeledVehicleMovementComponent* GetVehicleMovementComponent() const;
+
+	virtual void Tick(float DeltaSeconds) override;
 
 	//~ Begin AActor Interface
 	virtual void DisplayDebug(class UCanvas* Canvas, const FDebugDisplayInfo& DebugDisplay, float& YL, float& YPos) override;

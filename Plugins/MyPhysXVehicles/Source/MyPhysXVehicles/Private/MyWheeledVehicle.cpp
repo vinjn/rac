@@ -36,6 +36,19 @@ AMyWheeledVehicle::AMyWheeledVehicle(const FObjectInitializer& ObjectInitializer
 	VehicleMovement->UpdatedComponent = Mesh;
 }
 
+void AMyWheeledVehicle::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	if (DebugMode == Mode_DrawDebugLine)
+	{
+		GetVehicleMovementComponent()->DrawDebugLines();
+	}
+	else if (DebugMode == Mode_DrawTireForces)
+	{
+		GetVehicleMovementComponent()->DrawTireForces();
+	}
+}
+
 void AMyWheeledVehicle::DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& DebugDisplay, float& YL, float& YPos)
 {
 	Super::DisplayDebug(Canvas, DebugDisplay, YL, YPos);
@@ -49,13 +62,13 @@ void AMyWheeledVehicle::DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& D
 	{
 		Canvas->SetDrawColor(FColor::Red);
 		Canvas->DrawText(RenderFont, "Tire Load and Slips", 4, YPos);
-		GetVehicleMovementComponent()->DrawDebugLines();
+		//GetVehicleMovementComponent()->DrawDebugLines();
 	}
 	else if (DebugMode == Mode_DrawTireForces)
 	{
 		Canvas->SetDrawColor(FColor::Red);
 		Canvas->DrawText(RenderFont, "Tire Forces", 4, YPos);
-		GetVehicleMovementComponent()->DrawTireForces();
+		//GetVehicleMovementComponent()->DrawTireForces();
 	}
 }
 

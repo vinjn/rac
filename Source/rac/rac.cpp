@@ -72,21 +72,25 @@ public:
                 }
 #endif
 			}
-			rdoc_api->TriggerCapture();
-			uint32_t NumCaptrues = rdoc_api->GetNumCaptures();
-			if (NumCaptrues > 0)
-			{
-				uint32_t pathlength = 0;
-				uint32_t idx = NumCaptrues - 1;
-				rdoc_api->GetCapture(idx, NULL, &pathlength, NULL);
-				if (pathlength > 0)
-				{
-					char* filename = new char[pathlength+1];
-					rdoc_api->GetCapture(idx, filename, NULL, NULL);
-					FString str(filename);
-					UE_LOG(LogTemp, Warning, TEXT("[%d]: %s"), idx, *str);
 
-					delete[] filename;
+			if (rdoc_api != NULL)
+			{
+				rdoc_api->TriggerCapture();
+				uint32_t NumCaptrues = rdoc_api->GetNumCaptures();
+				if (NumCaptrues > 0)
+				{
+					uint32_t pathlength = 0;
+					uint32_t idx = NumCaptrues - 1;
+					rdoc_api->GetCapture(idx, NULL, &pathlength, NULL);
+					if (pathlength > 0)
+					{
+						char* filename = new char[pathlength+1];
+						rdoc_api->GetCapture(idx, filename, NULL, NULL);
+						FString str(filename);
+						UE_LOG(LogTemp, Warning, TEXT("[%d]: %s"), idx, *str);
+
+						delete[] filename;
+					}
 				}
 			}
 		}
